@@ -8,20 +8,12 @@ package appsalud;
  *
  * @author garci
  */
-import java.awt.Graphics;
-import java.awt.Graphics2D;
-import java.awt.image.BufferedImage;
-import java.io.IOException;
-import javax.imageio.ImageIO;
-import javax.swing.JPanel;
+public class Login extends javax.swing.JFrame {
 
-public class Inicio extends javax.swing.JFrame {
-
-    
     /**
-     * Creates new form Inicio
+     * Creates new form SignUp
      */
-    public Inicio() {
+    public Login() {
         initComponents();
     }
 
@@ -34,21 +26,34 @@ public class Inicio extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        lblBienvenido = new javax.swing.JLabel();
+        lblLogin = new javax.swing.JLabel();
+        lblPassword = new javax.swing.JLabel();
+        txtUsername = new javax.swing.JTextField();
+        lblUsername = new javax.swing.JLabel();
+        passwordFieldSU = new javax.swing.JPasswordField();
         btnInicioSesion = new javax.swing.JButton();
-        btnCrearCuenta = new javax.swing.JButton();
         lblFondo = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setBackground(new java.awt.Color(204, 204, 255));
-        setForeground(new java.awt.Color(204, 204, 255));
-        setPreferredSize(new java.awt.Dimension(800, 600));
+        setMaximumSize(new java.awt.Dimension(800, 600));
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        lblBienvenido.setFont(new java.awt.Font("Arial Nova Light", 0, 48)); // NOI18N
-        lblBienvenido.setForeground(new java.awt.Color(255, 255, 255));
-        lblBienvenido.setText("Bienvenid@ a Infitnity");
-        getContentPane().add(lblBienvenido, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 110, 440, 120));
+        lblLogin.setFont(new java.awt.Font("Arial Nova Light", 0, 48)); // NOI18N
+        lblLogin.setForeground(new java.awt.Color(255, 255, 255));
+        lblLogin.setText("Nos encanta verte de nuevo");
+        getContentPane().add(lblLogin, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 80, -1, 120));
+
+        lblPassword.setFont(new java.awt.Font("Arial Nova Light", 0, 18)); // NOI18N
+        lblPassword.setForeground(new java.awt.Color(255, 255, 255));
+        lblPassword.setText("Contraseña");
+        getContentPane().add(lblPassword, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 300, 100, -1));
+        getContentPane().add(txtUsername, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 230, 270, 40));
+
+        lblUsername.setFont(new java.awt.Font("Arial Nova Light", 0, 18)); // NOI18N
+        lblUsername.setForeground(new java.awt.Color(255, 255, 255));
+        lblUsername.setText("Usuario");
+        getContentPane().add(lblUsername, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 210, 70, -1));
+        getContentPane().add(passwordFieldSU, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 320, 270, 40));
 
         btnInicioSesion.setBackground(new java.awt.Color(153, 153, 255));
         btnInicioSesion.setFont(new java.awt.Font("Arial Nova Light", 0, 24)); // NOI18N
@@ -61,32 +66,13 @@ public class Inicio extends javax.swing.JFrame {
                 btnInicioSesionActionPerformed(evt);
             }
         });
-        getContentPane().add(btnInicioSesion, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 250, 220, 50));
-
-        btnCrearCuenta.setBackground(new java.awt.Color(153, 153, 255));
-        btnCrearCuenta.setFont(new java.awt.Font("Arial Nova Light", 0, 24)); // NOI18N
-        btnCrearCuenta.setForeground(new java.awt.Color(255, 255, 255));
-        btnCrearCuenta.setText("Crear Cuenta");
-        btnCrearCuenta.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        btnCrearCuenta.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        btnCrearCuenta.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnCrearCuentaActionPerformed(evt);
-            }
-        });
-        getContentPane().add(btnCrearCuenta, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 330, 220, 50));
+        getContentPane().add(btnInicioSesion, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 390, 220, 50));
 
         lblFondo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/infitnityFondo.png"))); // NOI18N
         getContentPane().add(lblFondo, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 800, 600));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    
-    
-    private void btnCrearCuentaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCrearCuentaActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnCrearCuentaActionPerformed
 
     private void btnInicioSesionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInicioSesionActionPerformed
         // TODO add your handling code here:
@@ -109,28 +95,32 @@ public class Inicio extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Inicio.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Login.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Inicio.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Login.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Inicio.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Login.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Inicio.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Login.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new Inicio().setVisible(true);
+                new Login().setVisible(true);
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnCrearCuenta;
     private javax.swing.JButton btnInicioSesion;
-    private javax.swing.JLabel lblBienvenido;
     private javax.swing.JLabel lblFondo;
+    private javax.swing.JLabel lblLogin;
+    private javax.swing.JLabel lblPassword;
+    private javax.swing.JLabel lblUsername;
+    private javax.swing.JPasswordField passwordFieldSU;
+    private javax.swing.JTextField txtUsername;
     // End of variables declaration//GEN-END:variables
 }
