@@ -86,10 +86,17 @@ public class Inicio extends javax.swing.JFrame {
     
     private void btnCrearCuentaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCrearCuentaActionPerformed
         // TODO add your handling code here:
+        SignUp signUp = new SignUp();
+        this.setVisible(false);
+        signUp.setVisible(true);
     }//GEN-LAST:event_btnCrearCuentaActionPerformed
 
     private void btnInicioSesionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInicioSesionActionPerformed
         // TODO add your handling code here:
+        Login login = new Login();
+        this.setVisible(false);
+        login.setVisible(true);
+        
     }//GEN-LAST:event_btnInicioSesionActionPerformed
 
     /**
