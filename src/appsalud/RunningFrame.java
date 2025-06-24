@@ -29,21 +29,117 @@ public class RunningFrame extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        lblActividad = new javax.swing.JLabel();
+        lblInicio = new javax.swing.JLabel();
+        spinnerInicio = new javax.swing.JSpinner();
+        lblFinal = new javax.swing.JLabel();
+        spinnerFinal = new javax.swing.JSpinner();
+        lblDistancia = new javax.swing.JLabel();
+        spinnerDistancia = new javax.swing.JSpinner();
+        lblFCMax = new javax.swing.JLabel();
+        spinnerFCMax = new javax.swing.JSpinner();
+        lblFCMin = new javax.swing.JLabel();
+        spinnerFCMin = new javax.swing.JSpinner();
+        btnRegistrar = new javax.swing.JButton();
+        lblElevacion = new javax.swing.JLabel();
+        spinnerElevacion = new javax.swing.JSpinner();
+        lblPasos = new javax.swing.JLabel();
+        spinnerPasos = new javax.swing.JSpinner();
+        lblFondo = new javax.swing.JLabel();
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
-        );
+        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        lblActividad.setFont(new java.awt.Font("Arial Nova Light", 0, 36)); // NOI18N
+        lblActividad.setForeground(new java.awt.Color(255, 255, 255));
+        lblActividad.setText("Estás registrando una sesión de running");
+        getContentPane().add(lblActividad, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 60, -1, 50));
+
+        lblInicio.setFont(new java.awt.Font("Arial Nova Light", 0, 21)); // NOI18N
+        lblInicio.setForeground(new java.awt.Color(255, 255, 255));
+        lblInicio.setText("Fecha y hora de inicio:");
+        getContentPane().add(lblInicio, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 130, -1, 40));
+
+        spinnerInicio.setFont(new java.awt.Font("Arial Nova Light", 0, 18)); // NOI18N
+        spinnerInicio.setModel(new javax.swing.SpinnerDateModel(new java.util.Date(), null, null, java.util.Calendar.DAY_OF_YEAR));
+        getContentPane().add(spinnerInicio, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 180, 300, 40));
+
+        lblFinal.setFont(new java.awt.Font("Arial Nova Light", 0, 21)); // NOI18N
+        lblFinal.setForeground(new java.awt.Color(255, 255, 255));
+        lblFinal.setText("Fecha y hora de final:");
+        getContentPane().add(lblFinal, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 130, -1, 40));
+
+        spinnerFinal.setFont(new java.awt.Font("Arial Nova Light", 0, 18)); // NOI18N
+        spinnerFinal.setModel(new javax.swing.SpinnerDateModel());
+        getContentPane().add(spinnerFinal, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 180, 300, 40));
+
+        lblDistancia.setFont(new java.awt.Font("Arial Nova Light", 0, 21)); // NOI18N
+        lblDistancia.setForeground(new java.awt.Color(255, 255, 255));
+        lblDistancia.setText("Distancia recorrida (Km):");
+        getContentPane().add(lblDistancia, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 350, -1, 40));
+
+        spinnerDistancia.setFont(new java.awt.Font("Arial Nova Light", 0, 18)); // NOI18N
+        spinnerDistancia.setModel(new javax.swing.SpinnerNumberModel(0.0f, null, null, 1.0f));
+        getContentPane().add(spinnerDistancia, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 400, 230, 40));
+
+        lblFCMax.setFont(new java.awt.Font("Arial Nova Light", 0, 19)); // NOI18N
+        lblFCMax.setForeground(new java.awt.Color(255, 255, 255));
+        lblFCMax.setText("Frecuencia cardíaca máxima (ppm):");
+        getContentPane().add(lblFCMax, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 240, -1, 40));
+
+        spinnerFCMax.setFont(new java.awt.Font("Arial Nova Light", 0, 18)); // NOI18N
+        spinnerFCMax.setModel(new javax.swing.SpinnerNumberModel());
+        getContentPane().add(spinnerFCMax, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 290, 300, 40));
+
+        lblFCMin.setFont(new java.awt.Font("Arial Nova Light", 0, 19)); // NOI18N
+        lblFCMin.setForeground(new java.awt.Color(255, 255, 255));
+        lblFCMin.setText("Frecuencia cardíaca mínima (ppm):");
+        getContentPane().add(lblFCMin, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 240, -1, 40));
+
+        spinnerFCMin.setFont(new java.awt.Font("Arial Nova Light", 0, 18)); // NOI18N
+        spinnerFCMin.setModel(new javax.swing.SpinnerNumberModel());
+        getContentPane().add(spinnerFCMin, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 290, 300, 40));
+
+        btnRegistrar.setBackground(new java.awt.Color(153, 153, 255));
+        btnRegistrar.setFont(new java.awt.Font("Arial Nova Light", 0, 18)); // NOI18N
+        btnRegistrar.setForeground(new java.awt.Color(255, 255, 255));
+        btnRegistrar.setText("Registrar sesión de running");
+        btnRegistrar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRegistrarActionPerformed(evt);
+            }
+        });
+        getContentPane().add(btnRegistrar, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 480, 250, 60));
+
+        lblElevacion.setFont(new java.awt.Font("Arial Nova Light", 0, 21)); // NOI18N
+        lblElevacion.setForeground(new java.awt.Color(255, 255, 255));
+        lblElevacion.setText("Elevación (m):");
+        getContentPane().add(lblElevacion, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 350, -1, 40));
+
+        spinnerElevacion.setFont(new java.awt.Font("Arial Nova Light", 0, 18)); // NOI18N
+        spinnerElevacion.setModel(new javax.swing.SpinnerNumberModel(0.0f, null, null, 1.0f));
+        getContentPane().add(spinnerElevacion, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 400, 130, 40));
+
+        lblPasos.setFont(new java.awt.Font("Arial Nova Light", 0, 21)); // NOI18N
+        lblPasos.setForeground(new java.awt.Color(255, 255, 255));
+        lblPasos.setText("Número total de pasos:");
+        getContentPane().add(lblPasos, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 350, -1, 40));
+
+        spinnerPasos.setFont(new java.awt.Font("Arial Nova Light", 0, 18)); // NOI18N
+        spinnerPasos.setModel(new javax.swing.SpinnerNumberModel(0.0f, null, null, 1.0f));
+        getContentPane().add(spinnerPasos, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 400, 210, 40));
+
+        lblFondo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/infitnityFondo.png"))); // NOI18N
+        getContentPane().add(lblFondo, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 800, 600));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnRegistrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistrarActionPerformed
+        ActividadGenerica generica = new ActividadGenerica(usuario, listaUsuarios);
+        generica.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_btnRegistrarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -80,5 +176,22 @@ public class RunningFrame extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnRegistrar;
+    private javax.swing.JLabel lblActividad;
+    private javax.swing.JLabel lblDistancia;
+    private javax.swing.JLabel lblElevacion;
+    private javax.swing.JLabel lblFCMax;
+    private javax.swing.JLabel lblFCMin;
+    private javax.swing.JLabel lblFinal;
+    private javax.swing.JLabel lblFondo;
+    private javax.swing.JLabel lblInicio;
+    private javax.swing.JLabel lblPasos;
+    private javax.swing.JSpinner spinnerDistancia;
+    private javax.swing.JSpinner spinnerElevacion;
+    private javax.swing.JSpinner spinnerFCMax;
+    private javax.swing.JSpinner spinnerFCMin;
+    private javax.swing.JSpinner spinnerFinal;
+    private javax.swing.JSpinner spinnerInicio;
+    private javax.swing.JSpinner spinnerPasos;
     // End of variables declaration//GEN-END:variables
 }

@@ -43,6 +43,7 @@ public class ActividadGenerica extends javax.swing.JFrame {
         spinnerFCMax = new javax.swing.JSpinner();
         lblFCMin = new javax.swing.JLabel();
         spinnerFCMin = new javax.swing.JSpinner();
+        btnRegistrar = new javax.swing.JButton();
         lblFondo = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -65,44 +66,61 @@ public class ActividadGenerica extends javax.swing.JFrame {
         lblFinal.setFont(new java.awt.Font("Arial Nova Light", 0, 21)); // NOI18N
         lblFinal.setForeground(new java.awt.Color(255, 255, 255));
         lblFinal.setText("Fecha y hora de final:");
-        getContentPane().add(lblFinal, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 170, -1, 40));
+        getContentPane().add(lblFinal, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 160, -1, 40));
 
         spinnerFinal.setFont(new java.awt.Font("Arial Nova Light", 0, 18)); // NOI18N
         spinnerFinal.setModel(new javax.swing.SpinnerDateModel());
-        getContentPane().add(spinnerFinal, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 210, 240, 40));
+        getContentPane().add(spinnerFinal, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 200, 240, 40));
 
         lblDistancia.setFont(new java.awt.Font("Arial Nova Light", 0, 21)); // NOI18N
         lblDistancia.setForeground(new java.awt.Color(255, 255, 255));
         lblDistancia.setText("Distancia recorrida (Km):");
-        getContentPane().add(lblDistancia, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 260, -1, 40));
+        getContentPane().add(lblDistancia, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 240, -1, 40));
 
         spinnerDistancia.setFont(new java.awt.Font("Arial Nova Light", 0, 18)); // NOI18N
         spinnerDistancia.setModel(new javax.swing.SpinnerNumberModel(0.0f, null, null, 1.0f));
-        getContentPane().add(spinnerDistancia, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 300, 240, 40));
+        getContentPane().add(spinnerDistancia, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 280, 240, 40));
 
         lblFCMax.setFont(new java.awt.Font("Arial Nova Light", 0, 21)); // NOI18N
         lblFCMax.setForeground(new java.awt.Color(255, 255, 255));
         lblFCMax.setText("Frecuencia cardíaca máxima (ppm):");
-        getContentPane().add(lblFCMax, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 350, -1, 40));
+        getContentPane().add(lblFCMax, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 320, -1, 40));
 
         spinnerFCMax.setFont(new java.awt.Font("Arial Nova Light", 0, 18)); // NOI18N
         spinnerFCMax.setModel(new javax.swing.SpinnerNumberModel());
-        getContentPane().add(spinnerFCMax, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 390, 240, 40));
+        getContentPane().add(spinnerFCMax, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 360, 240, 40));
 
         lblFCMin.setFont(new java.awt.Font("Arial Nova Light", 0, 21)); // NOI18N
         lblFCMin.setForeground(new java.awt.Color(255, 255, 255));
         lblFCMin.setText("Frecuencia cardíaca mínima (ppm):");
-        getContentPane().add(lblFCMin, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 440, -1, 40));
+        getContentPane().add(lblFCMin, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 400, -1, 40));
 
         spinnerFCMin.setFont(new java.awt.Font("Arial Nova Light", 0, 18)); // NOI18N
         spinnerFCMin.setModel(new javax.swing.SpinnerNumberModel());
-        getContentPane().add(spinnerFCMin, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 480, 240, 40));
+        getContentPane().add(spinnerFCMin, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 440, 240, 40));
+
+        btnRegistrar.setBackground(new java.awt.Color(153, 153, 255));
+        btnRegistrar.setFont(new java.awt.Font("Arial Nova Light", 0, 18)); // NOI18N
+        btnRegistrar.setForeground(new java.awt.Color(255, 255, 255));
+        btnRegistrar.setText("Registrar actividad");
+        btnRegistrar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRegistrarActionPerformed(evt);
+            }
+        });
+        getContentPane().add(btnRegistrar, new org.netbeans.lib.awtextra.AbsoluteConstraints(295, 500, 210, 60));
 
         lblFondo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/infitnityFondo.png"))); // NOI18N
         getContentPane().add(lblFondo, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 800, 600));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnRegistrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistrarActionPerformed
+        ActividadGenerica generica = new ActividadGenerica(usuario, listaUsuarios);
+        generica.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_btnRegistrarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -139,6 +157,7 @@ public class ActividadGenerica extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnRegistrar;
     private javax.swing.JLabel lblActividad;
     private javax.swing.JLabel lblDistancia;
     private javax.swing.JLabel lblFCMax;
