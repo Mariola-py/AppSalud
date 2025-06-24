@@ -87,7 +87,7 @@ public class Inicio extends javax.swing.JFrame {
     private void btnCrearCuentaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCrearCuentaActionPerformed
         // TODO add your handling code here:
         SignUp signUp = new SignUp();
-        this.setVisible(false);
+        this.dispose();
         signUp.setVisible(true);
     }//GEN-LAST:event_btnCrearCuentaActionPerformed
 
@@ -102,7 +102,7 @@ public class Inicio extends javax.swing.JFrame {
     /**
      * @param args the command line arguments
      */
-    public static void main(String args[]) {
+    public static void main(String args[]){
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.

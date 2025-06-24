@@ -60,7 +60,7 @@
     <Component class="javax.swing.JTextField" name="txtUsername">
       <Constraints>
         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-          <AbsoluteConstraints x="430" y="250" width="310" height="40"/>
+          <AbsoluteConstraints x="50" y="160" width="310" height="40"/>
         </Constraint>
       </Constraints>
     </Component>
@@ -247,7 +247,7 @@
     <Component class="javax.swing.JTextField" name="txtNombre">
       <Constraints>
         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-          <AbsoluteConstraints x="50" y="160" width="310" height="40"/>
+          <AbsoluteConstraints x="430" y="160" width="310" height="40"/>
         </Constraint>
       </Constraints>
     </Component>
@@ -270,7 +270,7 @@
     <Component class="javax.swing.JTextField" name="txtApellidos">
       <Constraints>
         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-          <AbsoluteConstraints x="430" y="160" width="310" height="40"/>
+          <AbsoluteConstraints x="430" y="250" width="310" height="40"/>
         </Constraint>
       </Constraints>
     </Component>

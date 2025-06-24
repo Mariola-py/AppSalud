@@ -1,14 +1,28 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
 package appsalud;
+import java.io.*;
+import java.time.*;
+import java.util.ArrayList;
+import java.util.Date;
+import javax.swing.JOptionPane;
 
 /**
  *
  * @author garci
  */
 public class SignUp extends javax.swing.JFrame {
+    
+    //Variables
+    static String username;
+    static String password;
+    static String password2;
+    static String nombre;
+    static String apellidos;
+    static LocalDate fechaNacimiento;
+    static int sexo; /*0 Varón, 1 Hembra*/
+    static float peso;
+    static float altura;
+    static int factorActividad;
+    static Usuario usuario;
 
     /**
      * Creates new form SignUp
@@ -59,7 +73,7 @@ public class SignUp extends javax.swing.JFrame {
         lblUsername.setForeground(new java.awt.Color(255, 255, 255));
         lblUsername.setText("Nombre de usuario");
         getContentPane().add(lblUsername, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 130, 290, -1));
-        getContentPane().add(txtUsername, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 250, 310, 40));
+        getContentPane().add(txtUsername, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 160, 310, 40));
 
         lblPassword.setFont(new java.awt.Font("Arial Nova Light", 0, 24)); // NOI18N
         lblPassword.setForeground(new java.awt.Color(255, 255, 255));
@@ -117,13 +131,13 @@ public class SignUp extends javax.swing.JFrame {
         lblNombre.setForeground(new java.awt.Color(255, 255, 255));
         lblNombre.setText("Nombre");
         getContentPane().add(lblNombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 130, 310, -1));
-        getContentPane().add(txtNombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 160, 310, 40));
+        getContentPane().add(txtNombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 160, 310, 40));
 
         lblApellidos.setFont(new java.awt.Font("Arial Nova Light", 0, 24)); // NOI18N
         lblApellidos.setForeground(new java.awt.Color(255, 255, 255));
         lblApellidos.setText("Apellidos");
         getContentPane().add(lblApellidos, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 220, 310, -1));
-        getContentPane().add(txtApellidos, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 160, 310, 40));
+        getContentPane().add(txtApellidos, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 250, 310, 40));
 
         lblFactor.setFont(new java.awt.Font("Arial Nova Light", 0, 24)); // NOI18N
         lblFactor.setForeground(new java.awt.Color(255, 255, 255));
@@ -141,17 +155,130 @@ public class SignUp extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnCrearCuentaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCrearCuentaActionPerformed
-        // TODO add your handling code here:
+        username = txtUsername.getText().trim();
+        password = passwordFieldSU.getText().trim();
+        password2 = passwordFieldSUConf.getText().trim();
+        nombre = txtNombre.getText().trim();
+        apellidos = txtApellidos.getText().trim();
+        //Obtener la fecha del spinner en tipo Date y pasarla a LocalDate
+        Date date = (Date) spinnerNacimiento.getValue();
+        Instant instant = date.toInstant();
+        ZoneId zona = ZoneId.systemDefault();
+        fechaNacimiento = instant.atZone(zona).toLocalDate();
+        sexo = cboxSexo.getSelectedIndex();
+        peso = (float) spinnerPeso.getValue();
+        altura = (float) spinnerAltura.getValue();
+        factorActividad = cboxFactor.getSelectedIndex();
+        
+        //Validar usuario
+        boolean usuarioValido = validarUsuario(username, password, nombre, apellidos);
+        if (usuarioValido){
+            
+            //Creación del usuario
+            Usuario usuario = new Usuario(username, password, nombre, apellidos, fechaNacimiento, altura, sexo, peso, factorActividad);
+            
+            //Serialización
+            // Cargar lista existente
+            ArrayList<Usuario> listaUsuarios = UsuariosManager.cargarUsuarios();
+
+            // Añadir nuevo usuario
+            listaUsuarios.add(usuario);
+
+            // Guardar lista actualizada
+            UsuariosManager.guardarUsuarios(listaUsuarios);
+
+            JOptionPane.showMessageDialog(null, "Cuenta creada con éxito.", "", JOptionPane.INFORMATION_MESSAGE);
+            
+            MenuPrincipal menuPrincipal = new MenuPrincipal(usuario, listaUsuarios);
+            this.dispose();
+            menuPrincipal.setVisible(true);
+            
+        }
+        
+        
+
     }//GEN-LAST:event_btnCrearCuentaActionPerformed
 
     private void cboxSexoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cboxSexoActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_cboxSexoActionPerformed
 
+    private boolean validarUsuario(String username, String password, String nombre, String apellidos){
+        
+        boolean passwordValido = validarPassword(password);
+        
+        if(username.isBlank()){ //El username no puede ser nulo
+            JOptionPane.showMessageDialog(null, "Introduce un nombre de usuario.", "", JOptionPane.WARNING_MESSAGE);
+            return false;
+        }
+        else if(usernameExiste(username)){
+            JOptionPane.showMessageDialog(null, "El nombre de usuario ya está registrado. Prueba con otro.", "", JOptionPane.WARNING_MESSAGE);
+            return false;
+        }
+        else if(!password.equals(password2)){ //La contraseña debe coincidir con la confirmación de la contraseña
+            JOptionPane.showMessageDialog(null, "Las contraseñas deben coincidir.", "", JOptionPane.WARNING_MESSAGE);
+            return false;
+        }
+        else if(!passwordValido){ //El password debe cumplir con los requisitos de seguridad
+            JOptionPane.showMessageDialog(null, "La contraseña debe tener 6 o más caracteres, letras y números.", "", JOptionPane.WARNING_MESSAGE);
+            return false;
+        }
+        else if(nombre.equals("")){ //El nombre no puede ser nulo
+            JOptionPane.showMessageDialog(null, "Introduce tu nombre.", "", JOptionPane.WARNING_MESSAGE);
+            return false;
+        }
+        else if(apellidos.equals("")){ //El/los apellidos no puede(n) ser nulo(s)
+            JOptionPane.showMessageDialog(null, "Introduce tu(s) apellido(s).", "", JOptionPane.WARNING_MESSAGE);
+            return false;
+        }
+        else
+            return true;
+    }
+    
+    private static boolean validarPassword(String password){
+        
+        if (password.length() < 6) {
+            return false;
+        }
+
+        boolean tieneLetra = false;
+        boolean tieneNumero = false;
+
+        for (char c : password.toCharArray()) {
+            if (Character.isLetter(c)) {
+                tieneLetra = true;
+            } else if (Character.isDigit(c)) {
+                tieneNumero = true;
+            }
+
+            if (tieneLetra && tieneNumero) {
+                return true;
+            }
+        }
+        
+        return false;
+    }
+
+    private static boolean usernameExiste(String username){
+        try(ObjectInputStream in = new ObjectInputStream(new FileInputStream("files/usuarios.ser"))){
+            ArrayList<Usuario> usuarios = (ArrayList<Usuario>) in.readObject();
+            
+            for(Usuario u: usuarios){
+                if (u.getUsername().equalsIgnoreCase(username)){
+                    return true;
+                }
+            }
+        } catch (IOException | ClassNotFoundException e){
+            return false;
+        }
+        
+        return false;
+    }
+    
     /**
      * @param args the command line arguments
      */
-    public static void main(String args[]) {
+    public static void main(String args[]) throws FileNotFoundException, IOException {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
@@ -181,6 +308,8 @@ public class SignUp extends javax.swing.JFrame {
                 new SignUp().setVisible(true);
             }
         });
+        
+        
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

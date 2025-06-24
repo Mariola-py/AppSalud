@@ -1,8 +1,9 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
 package appsalud;
+import java.io.*;
+import java.util.ArrayList;
+import javax.swing.JOptionPane;
+
+
 
 /**
  *
@@ -10,6 +11,10 @@ package appsalud;
  */
 public class Login extends javax.swing.JFrame {
 
+    static String username;
+    static String password;
+    static ArrayList<Usuario> listaUsuarios;
+    
     /**
      * Creates new form SignUp
      */
@@ -75,9 +80,36 @@ public class Login extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnInicioSesionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInicioSesionActionPerformed
-        // TODO add your handling code here:
+        username = txtUsername.getText();
+        password = passwordFieldSU.getText();
+        Usuario usuarioLogueado = comprobarUsuario(username, password);
+
+        if (usuarioLogueado == null) {
+            JOptionPane.showMessageDialog(null, "El usuario o la contraseña no es correcto", "Error de login", JOptionPane.ERROR_MESSAGE);
+        } else {
+            JOptionPane.showMessageDialog(null, "¡Bienvenido, " + usuarioLogueado.getNombre() + "!", "Login exitoso", JOptionPane.INFORMATION_MESSAGE);
+            MenuPrincipal menu = new MenuPrincipal(usuarioLogueado, listaUsuarios);
+            menu.setVisible(true);
+            this.dispose();
+        }
     }//GEN-LAST:event_btnInicioSesionActionPerformed
 
+    private static Usuario comprobarUsuario(String username, String password){
+        try (ObjectInputStream in = new ObjectInputStream(new FileInputStream("files/usuarios.ser"))) {
+            listaUsuarios = (ArrayList<Usuario>) in.readObject();
+
+            for (Usuario u : listaUsuarios) {
+                if (u.getUsername().equalsIgnoreCase(username) && u.getPassword().equals(password)) {
+                    return u; //Login exitoso
+                }
+            }
+
+        } catch (IOException | ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+
+        return null; //Usuario no encontrado o contraseña incorrecta
+    }
     /**
      * @param args the command line arguments
      */

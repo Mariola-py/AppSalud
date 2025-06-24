@@ -4,17 +4,29 @@
  */
 package appsalud;
 
+import java.util.ArrayList;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author garci
  */
 public class MenuPrincipal extends javax.swing.JFrame {
 
+    Usuario usuario;
+    ArrayList<Usuario> listaUsuarios;
+    ArrayList<UsuarioPremium> listaUsuariosPremium;
+
+    
     /**
      * Creates new form MenuPrincipal
      */
-    public MenuPrincipal() {
+     
+    public MenuPrincipal(Usuario usuario, ArrayList<Usuario> listaUsuarios) {
         initComponents();
+        this.usuario = usuario;
+        this.listaUsuarios = listaUsuarios;
+        lblHola.setText("Hola, "+usuario.getNombre());
     }
 
     /**
@@ -26,10 +38,10 @@ public class MenuPrincipal extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        lblHola = new javax.swing.JLabel();
         lblMenu = new javax.swing.JLabel();
-        lblIMC = new javax.swing.JLabel();
-        btnGoPremium = new javax.swing.JButton();
         btnCambiarContraseña = new javax.swing.JButton();
+        btnGoPremium = new javax.swing.JButton();
         btnInforme = new javax.swing.JButton();
         btnPeso = new javax.swing.JButton();
         btnActividad = new javax.swing.JButton();
@@ -38,26 +50,15 @@ public class MenuPrincipal extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        lblMenu.setFont(new java.awt.Font("Arial Nova Light", 0, 48)); // NOI18N
+        lblHola.setFont(new java.awt.Font("Arial Nova Light", 0, 36)); // NOI18N
+        lblHola.setForeground(new java.awt.Color(255, 255, 255));
+        lblHola.setText("Hola");
+        getContentPane().add(lblHola, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 50, -1, 40));
+
+        lblMenu.setFont(new java.awt.Font("Arial Nova Light", 0, 36)); // NOI18N
         lblMenu.setForeground(new java.awt.Color(255, 255, 255));
         lblMenu.setText("¿Qué quieres hacer hoy?");
-        getContentPane().add(lblMenu, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 30, -1, 100));
-
-        lblIMC.setFont(new java.awt.Font("Arial Nova Light", 0, 24)); // NOI18N
-        lblIMC.setForeground(new java.awt.Color(255, 255, 255));
-        lblIMC.setText("IMC:");
-        getContentPane().add(lblIMC, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 150, 360, 40));
-
-        btnGoPremium.setBackground(new java.awt.Color(255, 204, 255));
-        btnGoPremium.setFont(new java.awt.Font("Arial Nova Light", 0, 18)); // NOI18N
-        btnGoPremium.setForeground(new java.awt.Color(102, 102, 102));
-        btnGoPremium.setText("Hacerme premium");
-        btnGoPremium.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnGoPremiumActionPerformed(evt);
-            }
-        });
-        getContentPane().add(btnGoPremium, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 240, 210, 60));
+        getContentPane().add(lblMenu, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 80, -1, 100));
 
         btnCambiarContraseña.setBackground(new java.awt.Color(255, 204, 255));
         btnCambiarContraseña.setFont(new java.awt.Font("Arial Nova Light", 0, 18)); // NOI18N
@@ -68,7 +69,18 @@ public class MenuPrincipal extends javax.swing.JFrame {
                 btnCambiarContraseñaActionPerformed(evt);
             }
         });
-        getContentPane().add(btnCambiarContraseña, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 240, 210, 60));
+        getContentPane().add(btnCambiarContraseña, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 220, 210, 60));
+
+        btnGoPremium.setBackground(new java.awt.Color(255, 204, 255));
+        btnGoPremium.setFont(new java.awt.Font("Arial Nova Light", 0, 18)); // NOI18N
+        btnGoPremium.setForeground(new java.awt.Color(102, 102, 102));
+        btnGoPremium.setText("Hacerme premium");
+        btnGoPremium.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnGoPremiumActionPerformed(evt);
+            }
+        });
+        getContentPane().add(btnGoPremium, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 220, 210, 60));
 
         btnInforme.setBackground(new java.awt.Color(153, 153, 255));
         btnInforme.setFont(new java.awt.Font("Arial Nova Light", 0, 18)); // NOI18N
@@ -79,7 +91,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
                 btnInformeActionPerformed(evt);
             }
         });
-        getContentPane().add(btnInforme, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 480, 210, 60));
+        getContentPane().add(btnInforme, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 350, 210, 60));
 
         btnPeso.setBackground(new java.awt.Color(153, 153, 255));
         btnPeso.setFont(new java.awt.Font("Arial Nova Light", 0, 18)); // NOI18N
@@ -90,7 +102,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
                 btnPesoActionPerformed(evt);
             }
         });
-        getContentPane().add(btnPeso, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 480, 210, 60));
+        getContentPane().add(btnPeso, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 350, 210, 60));
 
         btnActividad.setBackground(new java.awt.Color(153, 153, 255));
         btnActividad.setFont(new java.awt.Font("Arial Nova Light", 0, 18)); // NOI18N
@@ -114,21 +126,59 @@ public class MenuPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_btnInformeActionPerformed
 
     private void btnPesoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPesoActionPerformed
-        // TODO add your handling code here:
+        RegistroPeso rPeso = new RegistroPeso(usuario, listaUsuarios);
+        rPeso.setVisible(true);
+        this.dispose();
     }//GEN-LAST:event_btnPesoActionPerformed
 
     private void btnActividadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActividadActionPerformed
-        // TODO add your handling code here:
+        RegistroActividad rActividad = new RegistroActividad(usuario, listaUsuarios);
+        rActividad.setVisible(true);
+        this.dispose();
     }//GEN-LAST:event_btnActividadActionPerformed
-
-    private void btnGoPremiumActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGoPremiumActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnGoPremiumActionPerformed
-
+    
     private void btnCambiarContraseñaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCambiarContraseñaActionPerformed
-        // TODO add your handling code here:
+        CambiarPass cambiarPass = new CambiarPass(usuario, listaUsuarios);
+        cambiarPass.setVisible(true);
+        this.dispose();
     }//GEN-LAST:event_btnCambiarContraseñaActionPerformed
 
+    private void btnGoPremiumActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGoPremiumActionPerformed
+        if(existeUsuarioPremium(usuario) !=null && existeUsuarioPremium(usuario).esPremium()){ //El usuario ya tiene una suscripción premium activa
+            JOptionPane.showMessageDialog(null, "Ya eres premium.", "", JOptionPane.INFORMATION_MESSAGE);
+        }else if(existeUsuarioPremium(usuario) !=null && !existeUsuarioPremium(usuario).esPremium()){ //El usuario existe pero se ha caducado la suscripcion
+            int opcion = JOptionPane.showConfirmDialog(null, "Tu suscripción premium ha caducado. ¿Quieres reactivarla?");
+            if (opcion == JOptionPane.YES_OPTION){
+                ReactivarSuscripcion reactivarSuscripcion = new ReactivarSuscripcion(usuario);
+                reactivarSuscripcion.setVisible(true);
+                this.dispose();
+            } else if (opcion == JOptionPane.NO_OPTION){
+                JOptionPane.showMessageDialog(null, "Ya no eres premium.");
+            } 
+        }else{ //El usuario no tiene cuenta premium
+            GoPremium goPremium = new GoPremium(usuario, listaUsuarios);
+            this.dispose();
+            goPremium.setVisible(true);
+        }
+        
+    }//GEN-LAST:event_btnGoPremiumActionPerformed
+
+    /**
+     * Función que comprueba si existe una cuenta premium de un usuario.
+     * @param Usuario usuario
+     * @return UsuarioPremium si existe, null si no existe
+     */
+    private UsuarioPremium existeUsuarioPremium(Usuario usuario){
+        
+        ArrayList<UsuarioPremium> listaUsuariosP = UsuariosManager.cargarUsuariosPremium();
+        for(UsuarioPremium u : listaUsuariosP){
+            if(u.getUsername().equalsIgnoreCase(usuario.getUsername())){
+                return u;
+            }
+        }
+        return null;
+    }
+    
     /**
      * @param args the command line arguments
      */
@@ -159,7 +209,6 @@ public class MenuPrincipal extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new MenuPrincipal().setVisible(true);
             }
         });
     }
@@ -171,7 +220,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
     private javax.swing.JButton btnInforme;
     private javax.swing.JButton btnPeso;
     private javax.swing.JLabel lblFondo;
-    private javax.swing.JLabel lblIMC;
+    private javax.swing.JLabel lblHola;
     private javax.swing.JLabel lblMenu;
     // End of variables declaration//GEN-END:variables
 }

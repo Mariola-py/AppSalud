@@ -9,6 +9,8 @@ public class AppSalud {
         // TODO code application logic here
         Inicio inicio = new Inicio();
         inicio.setVisible(true);
+        
+        
     }
     
 }
