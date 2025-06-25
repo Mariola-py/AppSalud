@@ -1,19 +1,12 @@
 package appsalud;
 
-import java.util.ArrayList;
-
 
 public class RegistroActividad extends javax.swing.JFrame {
 
-    private Usuario usuario;
-    private ArrayList<Usuario> listaUsuarios;
-    
     /**
      * Creates new form RegistroActividad
      */
-    public RegistroActividad(Usuario usuario, ArrayList<Usuario> listaUsuarios) {
-        this.usuario = usuario;
-        this.listaUsuarios = listaUsuarios;
+    public RegistroActividad() {
         initComponents();
     }
 
@@ -92,25 +85,25 @@ public class RegistroActividad extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnGenericaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGenericaActionPerformed
-        ActividadGenerica generica = new ActividadGenerica(usuario, listaUsuarios);
+        ActividadGenerica generica = new ActividadGenerica();
         generica.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_btnGenericaActionPerformed
 
     private void btnRunningActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRunningActionPerformed
-        RunningFrame running = new RunningFrame(usuario, listaUsuarios);
+        RunningFrame running = new RunningFrame();
         running.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_btnRunningActionPerformed
 
     private void btnCyclingActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCyclingActionPerformed
-        CyclingFrame cycling = new CyclingFrame(usuario, listaUsuarios);
+        CyclingFrame cycling = new CyclingFrame();
         cycling.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_btnCyclingActionPerformed
 
     private void btnSwimmingActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSwimmingActionPerformed
-        SwimmingFrame swimming = new SwimmingFrame(usuario, listaUsuarios);
+        SwimmingFrame swimming = new SwimmingFrame();
         swimming.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_btnSwimmingActionPerformed

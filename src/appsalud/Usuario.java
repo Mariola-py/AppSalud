@@ -61,7 +61,7 @@ public class Usuario implements Serializable{
 
     public String getIMC(float peso){
         float imc;
-        imc = (peso / ((altura/100)*(altura/100)));
+        imc = (peso / ((getAltura()/100)*(getAltura()/100)));
         if (imc < 18.5){
             return ("IMC: "+imc+". Por debajo del peso recomendado.");
         }
@@ -134,11 +134,11 @@ public class Usuario implements Serializable{
     
     public void registrarPeso(Peso nuevoPeso){
         //Añadir peso al historial
-        historialPesos.add(nuevoPeso);
+        getHistorialPesos().add(nuevoPeso);
         //Ordenar el historial por orden cronológico
-        historialPesos.sort(Comparator.comparing(Peso::getFecha));
+        getHistorialPesos().sort(Comparator.comparing(Peso::getFecha));
         //Actualizar el atributo peso con el valor más reciente
-        Peso pesoUltimo = historialPesos.get(historialPesos.size()-1);
+        Peso pesoUltimo = getHistorialPesos().get(getHistorialPesos().size()-1);
         this.peso = pesoUltimo.getPeso();
     }
 
@@ -161,6 +161,48 @@ public class Usuario implements Serializable{
      */
     public float getPeso() {
         return peso;
+    }
+
+    /**
+     * @return the historialPesos
+     */
+    public ArrayList<Peso> getHistorialPesos() {
+        return historialPesos;
+    }
+
+    /**
+     * @return the historialActividades
+     */
+    public ArrayList<Actividad> getHistorialActividades() {
+        return historialActividades;
+    }
+
+    /**
+     * @return the apellidos
+     */
+    public String getApellidos() {
+        return apellidos;
+    }
+
+    /**
+     * @return the fechaNacimiento
+     */
+    public LocalDate getFechaNacimiento() {
+        return fechaNacimiento;
+    }
+
+    /**
+     * @return the altura
+     */
+    public float getAltura() {
+        return altura;
+    }
+
+    /**
+     * @return the factorActividad
+     */
+    public int getFactorActividad() {
+        return factorActividad;
     }
 }
 

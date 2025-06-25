@@ -1,10 +1,10 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
 package appsalud;
 
+import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.util.ArrayList;
+import java.util.Date;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -12,15 +12,18 @@ import java.util.ArrayList;
  */
 public class CyclingFrame extends javax.swing.JFrame {
 
-    private Usuario usuario;
-    private ArrayList<Usuario> listaUsuarios;
+    private Usuario usuario = Sesion.getUsuarioActual();
+    private LocalDateTime fhInicio;
+    private LocalDateTime fhFin;
+    private float distancia;
+    private int fcMax;
+    private int fcMin;
+    private float cadencia;
     
     /**
      * Creates new form CyclingFrame
      */
-    public CyclingFrame(Usuario usuario, ArrayList<Usuario> listaUsuarios) {
-        this.usuario = usuario;
-        this.listaUsuarios = listaUsuarios;
+    public CyclingFrame() {
         initComponents();
     }
 
@@ -43,7 +46,7 @@ public class CyclingFrame extends javax.swing.JFrame {
         spinnerFCMin = new javax.swing.JSpinner();
         lblActividad = new javax.swing.JLabel();
         lblFCMin = new javax.swing.JLabel();
-        spinnerPasos = new javax.swing.JSpinner();
+        spinnerCadencia = new javax.swing.JSpinner();
         lblFinal = new javax.swing.JLabel();
         spinnerFinal = new javax.swing.JSpinner();
         spinnerInicio = new javax.swing.JSpinner();
@@ -105,9 +108,9 @@ public class CyclingFrame extends javax.swing.JFrame {
         lblFCMin.setText("Frecuencia cardíaca mínima (ppm):");
         getContentPane().add(lblFCMin, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 240, -1, 40));
 
-        spinnerPasos.setFont(new java.awt.Font("Arial Nova Light", 0, 18)); // NOI18N
-        spinnerPasos.setModel(new javax.swing.SpinnerNumberModel());
-        getContentPane().add(spinnerPasos, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 400, 290, 40));
+        spinnerCadencia.setFont(new java.awt.Font("Arial Nova Light", 0, 18)); // NOI18N
+        spinnerCadencia.setModel(new javax.swing.SpinnerNumberModel(0, 0, null, 1));
+        getContentPane().add(spinnerCadencia, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 400, 290, 40));
 
         lblFinal.setFont(new java.awt.Font("Arial Nova Light", 0, 21)); // NOI18N
         lblFinal.setForeground(new java.awt.Color(255, 255, 255));
@@ -129,9 +132,37 @@ public class CyclingFrame extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnRegistrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistrarActionPerformed
-        ActividadGenerica generica = new ActividadGenerica(usuario, listaUsuarios);
-        generica.setVisible(true);
-        this.dispose();
+        //Recoger inputs
+        Date dateInicio = (Date) spinnerInicio.getValue();
+        fhInicio = dateInicio.toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime();
+        Date dateFin = (Date) spinnerFinal.getValue();
+        fhFin = dateFin.toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime();
+        distancia = (float) spinnerDistancia.getValue();
+        fcMax = (int) spinnerFCMax.getValue();
+        fcMin = (int) spinnerFCMin.getValue();
+        cadencia = (int) spinnerCadencia.getValue();
+       
+        //Comprobar que los datos introducidos son válidos
+        if (Cycling.actividadValida(fhInicio, fhFin, distancia, fcMin, fcMax, cadencia)){ 
+            
+            // Crear actividad
+            Cycling cycling = new Cycling(fhInicio, fhFin, distancia, fcMax, fcMin, cadencia); 
+            
+            //Mostrar mensaje de actividad creada con éxito
+            JOptionPane.showMessageDialog(null, "Actividad creada con éxito.", "", JOptionPane.INFORMATION_MESSAGE);
+            
+            //Añadir actividad al historial del usuario
+            usuario.getHistorialActividades().add(cycling);
+            
+            //Serializar
+            UsuariosManager manager = UsuariosManager.getInstance();
+            manager.guardarUsuarios();
+            
+            //Volver al menú principal
+            MenuPrincipal menu = new MenuPrincipal();
+            menu.setVisible(true);
+            this.dispose();
+        }
     }//GEN-LAST:event_btnRegistrarActionPerformed
 
     /**
@@ -178,11 +209,11 @@ public class CyclingFrame extends javax.swing.JFrame {
     private javax.swing.JLabel lblFondo;
     private javax.swing.JLabel lblInicio;
     private javax.swing.JLabel lblPasos;
+    private javax.swing.JSpinner spinnerCadencia;
     private javax.swing.JSpinner spinnerDistancia;
     private javax.swing.JSpinner spinnerFCMax;
     private javax.swing.JSpinner spinnerFCMin;
     private javax.swing.JSpinner spinnerFinal;
     private javax.swing.JSpinner spinnerInicio;
-    private javax.swing.JSpinner spinnerPasos;
     // End of variables declaration//GEN-END:variables
 }

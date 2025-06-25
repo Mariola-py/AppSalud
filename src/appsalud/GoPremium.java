@@ -9,8 +9,7 @@ import javax.swing.JOptionPane;
 
 public class GoPremium extends javax.swing.JFrame {
     
-    private Usuario usuario;
-    private ArrayList<Usuario> listaUsuarios;
+    private Usuario usuario = Sesion.getUsuarioActual();
     private static int tipoSusc;
     private static String oldPass; 
     private static String newPass; 
@@ -19,9 +18,7 @@ public class GoPremium extends javax.swing.JFrame {
     /**
      * Creates new form GoPremium
      */
-    public GoPremium(Usuario usuario, ArrayList<Usuario> listaUsuarios) {
-        this.usuario = usuario;
-        this.listaUsuarios = listaUsuarios;
+    public GoPremium() {
         initComponents();
     }
     
@@ -129,26 +126,13 @@ public class GoPremium extends javax.swing.JFrame {
             //Crear cuenta con nueva contraseña
             usuario.setPassword(newPassConf);
             UsuarioPremium usuarioPremium = new UsuarioPremium(usuario, tipoSusc, LocalDate.now());
-            //Guardar Usuario premium
-            // 1. Cargar lista existente
-            ArrayList<UsuarioPremium> listaUsuariosP = UsuariosManager.cargarUsuariosPremium();
-            // 2. Añadir nuevo usuario
-            listaUsuariosP.add(usuarioPremium);
-            // 3. Guardar lista actualizada
-            UsuariosManager.guardarUsuariosPremium(listaUsuariosP);
-            // 4. Actualizar contraseña del fichero de usuarios general
-            // 4.1. Actualizamos en la lista de usuarios
-            for(Usuario u : listaUsuarios){
-                if(u.getUsername().equalsIgnoreCase(usuario.getUsername())){
-                    usuario.setPassword(newPassConf);
-                }
-            }
-            // 4.2. Serializamos la lista modificada
-            UsuariosManager.guardarUsuarios(listaUsuarios);
-            // 5. Mostrar mensaje de éxito
+            
+            UsuariosManager manager = UsuariosManager.getInstance();
+            manager.addUsuarioPremium(usuarioPremium);
+            // Mostrar mensaje de éxito
             JOptionPane.showMessageDialog(null, "Cuenta creada con éxito.", "", JOptionPane.INFORMATION_MESSAGE);
-            // 6. Volver al menú principal
-            MenuPrincipal menuPrincipal = new MenuPrincipal(usuario, listaUsuarios);
+            // Volver al menú principal
+            MenuPrincipal menuPrincipal = new MenuPrincipal();
             menuPrincipal.setVisible(true);
             this.dispose();
         }

@@ -2,6 +2,7 @@ package appsalud;
 
 import java.time.Duration;
 import java.time.LocalDateTime;
+import javax.swing.JOptionPane;
 
 public class Swimming extends Actividad{
     
@@ -23,4 +24,33 @@ public class Swimming extends Actividad{
         }
     }
     
+    public static boolean actividadValida(LocalDateTime fhInicio, LocalDateTime fhFin, float distancia, int fcMin, int fcMax, int numLargos){
+        if(fcMax < fcMin){
+            JOptionPane.showMessageDialog(null, "La frecuencia cardíaca máxima no puede ser inferior a la mínima.", "Error registrando actividad.", JOptionPane.ERROR_MESSAGE);
+            return false;
+        } else if(fhInicio.isAfter(fhFin)){
+            JOptionPane.showMessageDialog(null, "El inicio no puede ser posterior al fin de la actividad.", "Error registrando actividad.", JOptionPane.ERROR_MESSAGE);
+            return false;
+        } else if (distancia <= 0){
+            JOptionPane.showMessageDialog(null, "La distancia debe ser mayor que cero.", "Error registrando actividad.", JOptionPane.ERROR_MESSAGE);
+            return false;
+        } else if(numLargos <= 0){
+            JOptionPane.showMessageDialog(null, "El número de largos debe ser mayor que cero.", "Error registrando actividad.", JOptionPane.ERROR_MESSAGE);
+            return false;
+        } else{return true;}
+    }
+
+    /**
+     * @return the numLargos
+     */
+    public int getNumLargos() {
+        return numLargos;
+    }
+
+    /**
+     * @return the tipoNatacion
+     */
+    public int getTipoNatacion() {
+        return tipoNatacion;
+    }
 }

@@ -4,7 +4,11 @@
  */
 package appsalud;
 
+import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.util.ArrayList;
+import java.util.Date;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -12,15 +16,19 @@ import java.util.ArrayList;
  */
 public class SwimmingFrame extends javax.swing.JFrame {
 
-    private Usuario usuario;
-    private ArrayList<Usuario> listaUsuarios;
+    private Usuario usuario = Sesion.getUsuarioActual();
+    private LocalDateTime fhInicio;
+    private LocalDateTime fhFin;
+    private float distancia;
+    private int fcMax;
+    private int fcMin;
+    private int tipo;
+    private int numLargos;
     
     /**
      * Creates new form SwimmingFrame
      */
-    public SwimmingFrame(Usuario usuario, ArrayList<Usuario> listaUsuarios) {
-        this.usuario = usuario;
-        this.listaUsuarios = listaUsuarios;
+    public SwimmingFrame() {
         initComponents();
     }
 
@@ -45,7 +53,7 @@ public class SwimmingFrame extends javax.swing.JFrame {
         lblInicio = new javax.swing.JLabel();
         spinnerInicio = new javax.swing.JSpinner();
         lblElevacion = new javax.swing.JLabel();
-        spinnerPasos = new javax.swing.JSpinner();
+        spinnerLargos = new javax.swing.JSpinner();
         lblFinal = new javax.swing.JLabel();
         spinnerFinal = new javax.swing.JSpinner();
         cboxTipo = new javax.swing.JComboBox<>();
@@ -116,9 +124,9 @@ public class SwimmingFrame extends javax.swing.JFrame {
         lblElevacion.setText("Tipo natación:");
         getContentPane().add(lblElevacion, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 350, -1, 40));
 
-        spinnerPasos.setFont(new java.awt.Font("Arial Nova Light", 0, 18)); // NOI18N
-        spinnerPasos.setModel(new javax.swing.SpinnerNumberModel(0.0f, null, null, 1.0f));
-        getContentPane().add(spinnerPasos, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 400, 220, 40));
+        spinnerLargos.setFont(new java.awt.Font("Arial Nova Light", 0, 18)); // NOI18N
+        spinnerLargos.setModel(new javax.swing.SpinnerNumberModel(0.0f, null, null, 1.0f));
+        getContentPane().add(spinnerLargos, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 400, 220, 40));
 
         lblFinal.setFont(new java.awt.Font("Arial Nova Light", 0, 21)); // NOI18N
         lblFinal.setForeground(new java.awt.Color(255, 255, 255));
@@ -140,9 +148,38 @@ public class SwimmingFrame extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnRegistrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistrarActionPerformed
-        ActividadGenerica generica = new ActividadGenerica(usuario, listaUsuarios);
-        generica.setVisible(true);
-        this.dispose();
+        //Recoger inputs
+        Date dateInicio = (Date) spinnerInicio.getValue();
+        fhInicio = dateInicio.toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime();
+        Date dateFin = (Date) spinnerFinal.getValue();
+        fhFin = dateFin.toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime();
+        distancia = (float) spinnerDistancia.getValue();
+        fcMax = (int) spinnerFCMax.getValue();
+        fcMin = (int) spinnerFCMin.getValue();
+        numLargos = ((Number)spinnerLargos.getValue()).intValue();
+        tipo = cboxTipo.getSelectedIndex();
+       
+        //Comprobar que los datos introducidos son válidos
+        if (Swimming.actividadValida(fhInicio, fhFin, distancia, fcMin, fcMax, numLargos)){ 
+            
+            // Crear actividad
+            Swimming swimming = new Swimming(fhInicio, fhFin, distancia, fcMax, fcMin, numLargos, tipo); 
+            
+            //Mostrar mensaje de actividad creada con éxito
+            JOptionPane.showMessageDialog(null, "Actividad creada con éxito.", "", JOptionPane.INFORMATION_MESSAGE);
+            
+            //Añadir actividad al historial del usuario
+            usuario.getHistorialActividades().add(swimming);
+            
+            //Serializar
+            UsuariosManager manager = UsuariosManager.getInstance();
+            manager.guardarUsuarios();
+            
+            //Volver al menú principal
+            MenuPrincipal menu = new MenuPrincipal();
+            menu.setVisible(true);
+            this.dispose();
+        }
     }//GEN-LAST:event_btnRegistrarActionPerformed
 
     /**
@@ -196,6 +233,6 @@ public class SwimmingFrame extends javax.swing.JFrame {
     private javax.swing.JSpinner spinnerFCMin;
     private javax.swing.JSpinner spinnerFinal;
     private javax.swing.JSpinner spinnerInicio;
-    private javax.swing.JSpinner spinnerPasos;
+    private javax.swing.JSpinner spinnerLargos;
     // End of variables declaration//GEN-END:variables
 }

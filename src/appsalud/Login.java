@@ -82,34 +82,21 @@ public class Login extends javax.swing.JFrame {
     private void btnInicioSesionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInicioSesionActionPerformed
         username = txtUsername.getText();
         password = passwordFieldSU.getText();
-        Usuario usuarioLogueado = comprobarUsuario(username, password);
+        UsuariosManager manager = UsuariosManager.getInstance();
+        Usuario usuarioLogueado = manager.dameUsuario(username);
 
         if (usuarioLogueado == null) {
             JOptionPane.showMessageDialog(null, "El usuario o la contraseña no es correcto", "Error de login", JOptionPane.ERROR_MESSAGE);
         } else {
             JOptionPane.showMessageDialog(null, "¡Bienvenido, " + usuarioLogueado.getNombre() + "!", "Login exitoso", JOptionPane.INFORMATION_MESSAGE);
-            MenuPrincipal menu = new MenuPrincipal(usuarioLogueado, listaUsuarios);
+            Sesion.iniciarSesion(usuarioLogueado);
+            MenuPrincipal menu = new MenuPrincipal();
             menu.setVisible(true);
             this.dispose();
         }
     }//GEN-LAST:event_btnInicioSesionActionPerformed
 
-    private static Usuario comprobarUsuario(String username, String password){
-        try (ObjectInputStream in = new ObjectInputStream(new FileInputStream("files/usuarios.ser"))) {
-            listaUsuarios = (ArrayList<Usuario>) in.readObject();
-
-            for (Usuario u : listaUsuarios) {
-                if (u.getUsername().equalsIgnoreCase(username) && u.getPassword().equals(password)) {
-                    return u; //Login exitoso
-                }
-            }
-
-        } catch (IOException | ClassNotFoundException e) {
-            e.printStackTrace();
-        }
-
-        return null; //Usuario no encontrado o contraseña incorrecta
-    }
+    
     /**
      * @param args the command line arguments
      */

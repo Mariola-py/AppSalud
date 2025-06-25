@@ -13,7 +13,7 @@ import javax.swing.JOptionPane;
  */
 public class MenuPrincipal extends javax.swing.JFrame {
 
-    Usuario usuario;
+    Usuario usuario = Sesion.getUsuarioActual();
     ArrayList<Usuario> listaUsuarios;
     ArrayList<UsuarioPremium> listaUsuariosPremium;
 
@@ -22,11 +22,9 @@ public class MenuPrincipal extends javax.swing.JFrame {
      * Creates new form MenuPrincipal
      */
      
-    public MenuPrincipal(Usuario usuario, ArrayList<Usuario> listaUsuarios) {
+    public MenuPrincipal() {
         initComponents();
-        this.usuario = usuario;
-        this.listaUsuarios = listaUsuarios;
-        lblHola.setText("Hola, "+usuario.getNombre());
+        lblHola.setText("Hola, "+ usuario.getNombre());
     }
 
     /**
@@ -122,23 +120,25 @@ public class MenuPrincipal extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnInformeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInformeActionPerformed
-        // TODO add your handling code here:
+        MostrarInforme informe = new MostrarInforme();
+        informe.setVisible(true);
+        this.dispose();
     }//GEN-LAST:event_btnInformeActionPerformed
 
     private void btnPesoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPesoActionPerformed
-        RegistroPeso rPeso = new RegistroPeso(usuario, listaUsuarios);
+        RegistroPeso rPeso = new RegistroPeso();
         rPeso.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_btnPesoActionPerformed
 
     private void btnActividadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActividadActionPerformed
-        RegistroActividad rActividad = new RegistroActividad(usuario, listaUsuarios);
+        RegistroActividad rActividad = new RegistroActividad();
         rActividad.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_btnActividadActionPerformed
     
     private void btnCambiarContraseñaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCambiarContraseñaActionPerformed
-        CambiarPass cambiarPass = new CambiarPass(usuario, listaUsuarios);
+        CambiarPass cambiarPass = new CambiarPass();
         cambiarPass.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_btnCambiarContraseñaActionPerformed
@@ -156,7 +156,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(null, "Ya no eres premium.");
             } 
         }else{ //El usuario no tiene cuenta premium
-            GoPremium goPremium = new GoPremium(usuario, listaUsuarios);
+            GoPremium goPremium = new GoPremium();
             this.dispose();
             goPremium.setVisible(true);
         }

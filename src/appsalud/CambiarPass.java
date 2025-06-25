@@ -6,8 +6,7 @@ import java.util.ArrayList;
 
 public class CambiarPass extends javax.swing.JFrame {
     
-    Usuario usuario;
-    ArrayList<Usuario> listaUsuarios;
+    Usuario usuario = Sesion.getUsuarioActual();
 
     static String oldPass;
     static String newPass;
@@ -16,9 +15,7 @@ public class CambiarPass extends javax.swing.JFrame {
     /**
      * Creates new form CambiarPass
      */
-    public CambiarPass(Usuario usuario, ArrayList<Usuario> listaUsuarios) {
-        this.usuario = usuario;
-        this.listaUsuarios = listaUsuarios;
+    public CambiarPass() {
         initComponents();
     }
 
@@ -123,24 +120,12 @@ public class CambiarPass extends javax.swing.JFrame {
         // 4. Actualizar la contraseña
         usuario.setPassword(nueva); 
         JOptionPane.showMessageDialog(this, "Contraseña actualizada correctamente.", "Éxito", JOptionPane.INFORMATION_MESSAGE);
-        // Actualizar en la lista
-        for (Usuario u : listaUsuarios) {
-            if (u.getUsername().equals(usuario.getUsername())) {
-                u.setPassword(nueva);
-                break;
-            }
-        }
-        // 5. Actualizar datos del archivo serializado
-        // Serializar la lista
-        try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream("files/usuarios.ser"))) {
-            oos.writeObject(listaUsuarios);
-        } catch (IOException e) {
-            JOptionPane.showMessageDialog(this, "Error al guardar los datos.");
-            e.printStackTrace();
-            return;
-        }
+        
+        // 5. Serializar la lista
+        UsuariosManager manager = UsuariosManager.getInstance();
+        manager.guardarUsuarios();
 
-        MenuPrincipal menu = new MenuPrincipal(usuario, listaUsuarios);
+        MenuPrincipal menu = new MenuPrincipal();
         menu.setVisible(true);
         this.dispose(); 
     }

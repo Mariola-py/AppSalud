@@ -8,15 +8,12 @@ import javax.swing.JOptionPane;
 
 public class RegistroPeso extends javax.swing.JFrame {
 
-    private Usuario usuario;
-    private ArrayList<Usuario> listaUsuarios;
+    private Usuario usuario = Sesion.getUsuarioActual();
     private float pesoRegistrar;
     private LocalDate fechaPR;
     
-    public RegistroPeso(Usuario usuario, ArrayList<Usuario> listaUsuarios) {
+    public RegistroPeso() {
         initComponents();
-        this.usuario = usuario;
-        this.listaUsuarios = listaUsuarios;
     }
 
     /**
@@ -94,10 +91,11 @@ public class RegistroPeso extends javax.swing.JFrame {
         //Añadir el peso al historial.
         usuario.registrarPeso(pesoNuevo);
         //Serializar cambios
-        UsuariosManager.guardarUsuarios(listaUsuarios);
+        UsuariosManager manager = UsuariosManager.getInstance();
+        manager.guardarUsuarios();
         //Mostrar mensaje y volver a cargar el menú principal
         JOptionPane.showMessageDialog(null, "El peso ha sido registrado correctamente.", "Éxito", JOptionPane.INFORMATION_MESSAGE);
-        MenuPrincipal menu = new MenuPrincipal(usuario,listaUsuarios);
+        MenuPrincipal menu = new MenuPrincipal();
         menu.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_btnPesoActionPerformed

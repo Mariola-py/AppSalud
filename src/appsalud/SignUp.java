@@ -177,19 +177,16 @@ public class SignUp extends javax.swing.JFrame {
             //Creación del usuario
             Usuario usuario = new Usuario(username, password, nombre, apellidos, fechaNacimiento, altura, sexo, peso, factorActividad);
             
-            //Serialización
-            // Cargar lista existente
-            ArrayList<Usuario> listaUsuarios = UsuariosManager.cargarUsuarios();
-
-            // Añadir nuevo usuario
-            listaUsuarios.add(usuario);
-
-            // Guardar lista actualizada
-            UsuariosManager.guardarUsuarios(listaUsuarios);
+            //Guardar usuario
+            UsuariosManager manager = UsuariosManager.getInstance();
+            manager.addUsuario(usuario);
+            
 
             JOptionPane.showMessageDialog(null, "Cuenta creada con éxito.", "", JOptionPane.INFORMATION_MESSAGE);
             
-            MenuPrincipal menuPrincipal = new MenuPrincipal(usuario, listaUsuarios);
+            // Iniciar sesión
+            Sesion.iniciarSesion(usuario);
+            MenuPrincipal menuPrincipal = new MenuPrincipal();
             this.dispose();
             menuPrincipal.setVisible(true);
             
@@ -206,12 +203,12 @@ public class SignUp extends javax.swing.JFrame {
     private boolean validarUsuario(String username, String password, String nombre, String apellidos){
         
         boolean passwordValido = validarPassword(password);
-        
+        UsuariosManager manager = UsuariosManager.getInstance();
         if(username.isBlank()){ //El username no puede ser nulo
             JOptionPane.showMessageDialog(null, "Introduce un nombre de usuario.", "", JOptionPane.WARNING_MESSAGE);
             return false;
         }
-        else if(usernameExiste(username)){
+        else if(manager.existeUsuario(username)){
             JOptionPane.showMessageDialog(null, "El nombre de usuario ya está registrado. Prueba con otro.", "", JOptionPane.WARNING_MESSAGE);
             return false;
         }
@@ -259,21 +256,6 @@ public class SignUp extends javax.swing.JFrame {
         return false;
     }
 
-    private static boolean usernameExiste(String username){
-        try(ObjectInputStream in = new ObjectInputStream(new FileInputStream("files/usuarios.ser"))){
-            ArrayList<Usuario> usuarios = (ArrayList<Usuario>) in.readObject();
-            
-            for(Usuario u: usuarios){
-                if (u.getUsername().equalsIgnoreCase(username)){
-                    return true;
-                }
-            }
-        } catch (IOException | ClassNotFoundException e){
-            return false;
-        }
-        
-        return false;
-    }
     
     /**
      * @param args the command line arguments

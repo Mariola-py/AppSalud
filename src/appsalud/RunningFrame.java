@@ -1,6 +1,10 @@
 package appsalud;
 
+import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.util.ArrayList;
+import java.util.Date;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -8,15 +12,19 @@ import java.util.ArrayList;
  */
 public class RunningFrame extends javax.swing.JFrame {
 
-    private Usuario usuario;
-    private ArrayList<Usuario> listaUsuarios;
+    private Usuario usuario = Sesion.getUsuarioActual();
+    private LocalDateTime fhInicio;
+    private LocalDateTime fhFin;
+    private float distancia;
+    private int fcMax;
+    private int fcMin;
+    private float elevacion;
+    private int numPasos;
     
     /**
      * Creates new form RunningFrame
      */
-    public RunningFrame(Usuario usuario, ArrayList<Usuario> listaUsuarios) {
-        this.usuario = usuario;
-        this.listaUsuarios = listaUsuarios;
+    public RunningFrame() {
         initComponents();
     }
 
@@ -61,7 +69,7 @@ public class RunningFrame extends javax.swing.JFrame {
         getContentPane().add(lblInicio, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 130, -1, 40));
 
         spinnerInicio.setFont(new java.awt.Font("Arial Nova Light", 0, 18)); // NOI18N
-        spinnerInicio.setModel(new javax.swing.SpinnerDateModel(new java.util.Date(), null, null, java.util.Calendar.DAY_OF_YEAR));
+        spinnerInicio.setModel(new javax.swing.SpinnerDateModel(new java.util.Date(), new java.util.Date(1735752960000L), new java.util.Date(), java.util.Calendar.DAY_OF_YEAR));
         getContentPane().add(spinnerInicio, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 180, 300, 40));
 
         lblFinal.setFont(new java.awt.Font("Arial Nova Light", 0, 21)); // NOI18N
@@ -70,7 +78,7 @@ public class RunningFrame extends javax.swing.JFrame {
         getContentPane().add(lblFinal, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 130, -1, 40));
 
         spinnerFinal.setFont(new java.awt.Font("Arial Nova Light", 0, 18)); // NOI18N
-        spinnerFinal.setModel(new javax.swing.SpinnerDateModel());
+        spinnerFinal.setModel(new javax.swing.SpinnerDateModel(new java.util.Date(), new java.util.Date(1735752960000L), new java.util.Date(), java.util.Calendar.DAY_OF_MONTH));
         getContentPane().add(spinnerFinal, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 180, 300, 40));
 
         lblDistancia.setFont(new java.awt.Font("Arial Nova Light", 0, 21)); // NOI18N
@@ -136,9 +144,38 @@ public class RunningFrame extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnRegistrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistrarActionPerformed
-        ActividadGenerica generica = new ActividadGenerica(usuario, listaUsuarios);
-        generica.setVisible(true);
-        this.dispose();
+        //Recoger inputs
+        Date dateInicio = (Date) spinnerInicio.getValue();
+        fhInicio = dateInicio.toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime();
+        Date dateFin = (Date) spinnerFinal.getValue();
+        fhFin = dateFin.toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime();
+        distancia = (float) spinnerDistancia.getValue();
+        fcMax = (int) spinnerFCMax.getValue();
+        fcMin = (int) spinnerFCMin.getValue();
+        numPasos = ((Number)spinnerPasos.getValue()).intValue();
+        elevacion = (float) spinnerElevacion.getValue();
+       
+        //Comprobar que los datos introducidos son válidos
+        if (Running.actividadValida(fhInicio, fhFin, distancia, fcMin, fcMax, elevacion, numPasos)){ 
+            
+            // Crear actividad
+            Running running = new Running(fhInicio, fhFin, distancia, fcMax, fcMin, elevacion, numPasos); 
+            
+            //Mostrar mensaje de actividad creada con éxito
+            JOptionPane.showMessageDialog(null, "Actividad creada con éxito.", "", JOptionPane.INFORMATION_MESSAGE);
+            
+            //Añadir actividad al historial del usuario
+            usuario.getHistorialActividades().add(running);
+            
+            //Serializar
+            UsuariosManager manager = UsuariosManager.getInstance();
+        manager.guardarUsuarios();
+            
+            //Volver al menú principal
+            MenuPrincipal menu = new MenuPrincipal();
+            menu.setVisible(true);
+            this.dispose();
+        }
     }//GEN-LAST:event_btnRegistrarActionPerformed
 
     /**

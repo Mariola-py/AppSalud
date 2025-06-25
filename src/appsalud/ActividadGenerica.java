@@ -4,7 +4,11 @@
  */
 package appsalud;
 
+import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.util.ArrayList;
+import java.util.Date;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -12,14 +16,16 @@ import java.util.ArrayList;
  */
 public class ActividadGenerica extends javax.swing.JFrame {
 
-    private Usuario usuario;
-    private ArrayList<Usuario> listaUsuarios;
+    private Usuario usuario = Sesion.getUsuarioActual();
+    private LocalDateTime fhInicio;
+    private LocalDateTime fhFin;
+    private float distancia;
+    private int fcMax;
+    private int fcMin;
     /**
      * Creates new form ActividadGenerica
      */
-    public ActividadGenerica(Usuario usuario, ArrayList<Usuario> listaUsuarios) {
-        this.usuario = usuario;
-        this.listaUsuarios = listaUsuarios;
+    public ActividadGenerica() {
         initComponents();
     }
 
@@ -117,9 +123,32 @@ public class ActividadGenerica extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnRegistrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistrarActionPerformed
-        ActividadGenerica generica = new ActividadGenerica(usuario, listaUsuarios);
-        generica.setVisible(true);
-        this.dispose();
+        
+        //Recoger inputs
+        Date dateInicio = (Date) spinnerInicio.getValue();
+        fhInicio = dateInicio.toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime();
+        Date dateFin = (Date) spinnerFinal.getValue();
+        fhFin = dateFin.toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime();
+        distancia = (float) spinnerDistancia.getValue();
+        fcMax = (int) spinnerFCMax.getValue();
+        fcMin = (int) spinnerFCMin.getValue();
+       
+        if (Actividad.actividadValida(fhInicio, fhFin, distancia, fcMin, fcMax)){ //Comprobar que los datos introducidos son válidos.
+            Actividad actividadGen = new Actividad(fhInicio, fhFin, distancia, fcMax, fcMin); // Crear actividad
+            //Mostrar mensaje de actividad creada con éxito
+            JOptionPane.showMessageDialog(null, "Actividad creada con éxito.", "", JOptionPane.INFORMATION_MESSAGE);
+            
+            //Añadir actividad al historial del usuario
+            usuario.getHistorialActividades().add(actividadGen);
+            
+            //Serializar
+            UsuariosManager manager = UsuariosManager.getInstance();
+            manager.guardarUsuarios();
+            //Volver al menú principal
+            MenuPrincipal menu = new MenuPrincipal();
+            menu.setVisible(true);
+            this.dispose();
+        }
     }//GEN-LAST:event_btnRegistrarActionPerformed
 
     /**
