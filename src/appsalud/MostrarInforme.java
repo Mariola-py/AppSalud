@@ -164,6 +164,8 @@ public class MostrarInforme extends javax.swing.JFrame {
                 return types [columnIndex];
             }
         });
+        tableAct.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_OFF);
+        tableAct.setCellSelectionEnabled(true);
         scrollAct.setViewportView(tableAct);
 
         getContentPane().add(scrollAct, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 280, 700, 100));
