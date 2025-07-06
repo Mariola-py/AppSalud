@@ -9,46 +9,61 @@ public class Swimming extends Actividad{
     private int numLargos;
     private int tipoNatacion; //0 Piscina, 1 Mar
     
+    /**
+     * Constructor de la clase Swimming.
+     *
+     * @param inicio     Fecha y hora de inicio de la actividad.
+     * @param fin        Fecha y hora de fin de la actividad.
+     * @param distancia  Distancia recorrida en metros.
+     * @param fcMax      Frecuencia cardíaca máxima durante la actividad.
+     * @param fcMin      Frecuencia cardíaca mínima durante la actividad.
+     * @param numLargos  Número de largos nadados.
+     * @param tipoNatacion Tipo de natación realizada.
+     */
     public Swimming(LocalDateTime inicio, LocalDateTime fin, float distancia, int fcMax, int fcMin, int numLargos, int tipoNatacion){
         super(inicio, fin, distancia, fcMax, fcMin);
         this.numLargos = numLargos;
         this.tipoNatacion = tipoNatacion;
+        this.setKcal(this.getKcal() * 1.1);
+
     }
     
-    @Override
-    protected double calcularKcal(Usuario usuario, int fcMedia, Duration duracion){
-        if(usuario.getSexo() == 0){//Varón
-            return ((usuario.getEdad()*0.2017) - (usuario.getPeso()* 2.2 * 0.09036) + (fcMedia * 0.6309) - 55.0969) * (duracion.getSeconds() / 60) / 4.184 * 1.1;
-        }else{ //Hembra
-            return ((usuario.getEdad()*0.074) - (usuario.getPeso()* 2.2 * 0.05741) + (fcMedia * 0.4472) - 20.4022) * (duracion.getSeconds() / 60) / 4.184 * 1.1;
-        }
-    }
     
+    /**
+     * Valida los datos de una actividad de natación.
+     *
+     * Comprueba que el número de largos sea mayor que cero y delega
+     * la validación del resto de parámetros a la clase base Actividad.
+     *
+     * @param fhInicio Fecha y hora de inicio de la actividad.
+     * @param fhFin Fecha y hora de fin de la actividad.
+     * @param distancia Distancia recorrida en metros.
+     * @param fcMin Frecuencia cardíaca mínima registrada.
+     * @param fcMax Frecuencia cardíaca máxima registrada.
+     * @param numLargos Número de largos realizados.
+     * @return true si los datos son válidos, false en caso contrario.
+     */
     public static boolean actividadValida(LocalDateTime fhInicio, LocalDateTime fhFin, float distancia, int fcMin, int fcMax, int numLargos){
-        if(fcMax < fcMin){
-            JOptionPane.showMessageDialog(null, "La frecuencia cardíaca máxima no puede ser inferior a la mínima.", "Error registrando actividad.", JOptionPane.ERROR_MESSAGE);
-            return false;
-        } else if(fhInicio.isAfter(fhFin)){
-            JOptionPane.showMessageDialog(null, "El inicio no puede ser posterior al fin de la actividad.", "Error registrando actividad.", JOptionPane.ERROR_MESSAGE);
-            return false;
-        } else if (distancia <= 0){
-            JOptionPane.showMessageDialog(null, "La distancia debe ser mayor que cero.", "Error registrando actividad.", JOptionPane.ERROR_MESSAGE);
-            return false;
-        } else if(numLargos <= 0){
+        if(numLargos <= 0){
             JOptionPane.showMessageDialog(null, "El número de largos debe ser mayor que cero.", "Error registrando actividad.", JOptionPane.ERROR_MESSAGE);
             return false;
-        } else{return true;}
+        } 
+        return Actividad.actividadValida(fhInicio, fhFin, distancia, fcMin, fcMax);
     }
 
     /**
-     * @return the numLargos
+     * Obtiene el número de largos realizados en la actividad de natación.
+     *
+     * @return el número de largos.
      */
     public int getNumLargos() {
         return numLargos;
     }
 
     /**
-     * @return the tipoNatacion
+     * Obtiene el tipo de natación de la actividad.
+     *
+     * @return el tipo de natación como un entero (por ejemplo, 1 para estilo libre, 2 para espalda, etc.).
      */
     public int getTipoNatacion() {
         return tipoNatacion;

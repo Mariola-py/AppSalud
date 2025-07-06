@@ -154,6 +154,15 @@ public class SignUp extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    /**
+     * Evento que se ejecuta al pulsar el botón Crear Cuenta.
+     * Recoge los datos introducidos por el usuario, valida que el usuario no exista
+     * y que los datos sean correctos. Si todo es válido, crea un nuevo usuario,
+     * lo añade al gestor de usuarios, inicia sesión con el nuevo usuario,
+     * muestra un mensaje de éxito y abre el menú principal cerrando la ventana actual.
+     *
+     * @param evt evento generado al pulsar el botón.
+     */
     private void btnCrearCuentaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCrearCuentaActionPerformed
         username = txtUsername.getText().trim();
         password = passwordFieldSU.getText().trim();
@@ -189,11 +198,7 @@ public class SignUp extends javax.swing.JFrame {
             MenuPrincipal menuPrincipal = new MenuPrincipal();
             this.dispose();
             menuPrincipal.setVisible(true);
-            
         }
-        
-        
-
     }//GEN-LAST:event_btnCrearCuentaActionPerformed
 
     private void cboxSexoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cboxSexoActionPerformed

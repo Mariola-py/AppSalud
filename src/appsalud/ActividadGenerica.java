@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
 package appsalud;
 
 import java.time.LocalDateTime;
@@ -10,10 +6,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import javax.swing.JOptionPane;
 
-/**
- *
- * @author garci
- */
+
 public class ActividadGenerica extends javax.swing.JFrame {
 
     private Usuario usuario = Sesion.getUsuarioActual();
@@ -22,6 +15,7 @@ public class ActividadGenerica extends javax.swing.JFrame {
     private float distancia;
     private int fcMax;
     private int fcMin;
+    
     /**
      * Creates new form ActividadGenerica
      */
@@ -122,6 +116,23 @@ public class ActividadGenerica extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    /**
+    * Evento que se ejecuta al pulsar el botón Registrar.
+    * 
+    * Recoge los datos introducidos por el usuario en los campos de fecha, hora, 
+    * distancia y frecuencia cardíaca, valida que los datos sean correctos y, 
+    * si lo son, crea una nueva actividad deportiva.
+    * 
+    * Tras crear la actividad:
+    * - Añade la actividad al historial del usuario actual.
+    * - Serializa los datos del usuario para guardar los cambios.
+    * - Muestra un mensaje informativo de éxito.
+    * - Cambia la vista al menú principal y cierra la ventana actual.
+    * 
+    * Si los datos no son válidos, no se crea la actividad ni se realiza ninguna acción.
+    * 
+    * @param evt el evento generado por la pulsación del botón.
+    */
     private void btnRegistrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistrarActionPerformed
         
         //Recoger inputs
@@ -133,22 +144,26 @@ public class ActividadGenerica extends javax.swing.JFrame {
         fcMax = (int) spinnerFCMax.getValue();
         fcMin = (int) spinnerFCMin.getValue();
        
-        if (Actividad.actividadValida(fhInicio, fhFin, distancia, fcMin, fcMax)){ //Comprobar que los datos introducidos son válidos.
-            Actividad actividadGen = new Actividad(fhInicio, fhFin, distancia, fcMax, fcMin); // Crear actividad
+        //Comprobar que los datos introducidos son válidos y crear la actividad si lo son.
+        if (Actividad.actividadValida(fhInicio, fhFin, distancia, fcMin, fcMax)){ 
+            Actividad actividadGen = new Actividad(fhInicio, fhFin, distancia, fcMax, fcMin); 
             //Mostrar mensaje de actividad creada con éxito
             JOptionPane.showMessageDialog(null, "Actividad creada con éxito.", "", JOptionPane.INFORMATION_MESSAGE);
-            
+                
             //Añadir actividad al historial del usuario
             usuario.getHistorialActividades().add(actividadGen);
             
             //Serializar
             UsuariosManager manager = UsuariosManager.getInstance();
             manager.guardarUsuarios();
+
             //Volver al menú principal
             MenuPrincipal menu = new MenuPrincipal();
             menu.setVisible(true);
             this.dispose();
         }
+        
+        
     }//GEN-LAST:event_btnRegistrarActionPerformed
 
     /**

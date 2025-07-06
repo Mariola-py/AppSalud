@@ -4,10 +4,18 @@
  */
 package appsalud;
 
+import java.awt.Component;
+import java.awt.Font;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
+import javax.swing.JTable;
+import javax.swing.SwingConstants;
+import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.JTableHeader;
+import javax.swing.table.TableCellRenderer;
+import javax.swing.table.TableColumn;
 
 /**
  *
@@ -33,46 +41,167 @@ public class MostrarInforme extends javax.swing.JFrame {
         lbl5.setText("Sexo: " + SEXO.get(usuario.getSexo()) + "   Peso: " +  usuario.getPeso() + "   Altura: " + usuario.getAltura());
         lbl6.setText(usuario.getIMC(usuario.getPeso()) + "   Factor de actividad: " + FACTORACTIVIDAD.get(usuario.getFactorActividad()));
         cargarHistorialActividades();
+        JTableHeader header = tableAct.getTableHeader();
+        header.setFont(new Font("Arial Nova Light", Font.PLAIN,14));
+        tableAct.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+
+        //Configuración de las columnas de la tabla de actividades
+        tableAct.getColumnModel().getColumn(0).setPreferredWidth(100);  // Tipo de actividad
+        tableAct.getColumnModel().getColumn(1).setPreferredWidth(150);  // Fecha y hora inicio
+        tableAct.getColumnModel().getColumn(2).setPreferredWidth(150);  // Fecha y hora fin
+        tableAct.getColumnModel().getColumn(3).setPreferredWidth(110);  // Duración
+        tableAct.getColumnModel().getColumn(4).setPreferredWidth(110);  // Distancia
+        tableAct.getColumnModel().getColumn(5).setPreferredWidth(120);  // Kcal consumidas
+        tableAct.getColumnModel().getColumn(6).setPreferredWidth(150);  // FC mínima
+        tableAct.getColumnModel().getColumn(7).setPreferredWidth(150);  // FC media
+        tableAct.getColumnModel().getColumn(8).setPreferredWidth(150);  // FC máxima
+        tableAct.getColumnModel().getColumn(9).setPreferredWidth(100);  // Ritmo
+        tableAct.getColumnModel().getColumn(10).setPreferredWidth(100); // Elevación
+        tableAct.getColumnModel().getColumn(11).setPreferredWidth(120); // Pasos totales
+        tableAct.getColumnModel().getColumn(12).setPreferredWidth(100); // Cadencia
+        tableAct.getColumnModel().getColumn(13).setPreferredWidth(120); // Nº de largos
+        tableAct.getColumnModel().getColumn(14).setPreferredWidth(140); // Tipo de natación (playa/piscina)
+
+        tableAct.setShowGrid(false);
+        
+        //Configuración de las columnas de la tabla de pesos
+        tablePeso.getColumnModel().getColumn(0).setPreferredWidth(50);  // Fecha
+        tablePeso.getColumnModel().getColumn(1).setPreferredWidth(50);  // Peso
+        tablePeso.getColumnModel().getColumn(2).setPreferredWidth(150);  // IMC
+        cargarHistorialPesos();
     }
     
     private void cargarHistorialActividades() {
-    Usuario usuario = Sesion.getUsuarioActual(); // o como tengas guardado el usuario logueado
-    ArrayList<Actividad> actividades = usuario.getHistorialActividades(); // ajusta el getter si hace falta
+        DefaultTableModel model = (DefaultTableModel) tableAct.getModel();
+        model.setRowCount(0); // Limpiar tabla antes de cargar datos
 
-    DefaultTableModel modelo = (DefaultTableModel) tableAct.getModel();
-    modelo.setRowCount(0); // Limpiar la tabla
+        for (Actividad a : usuario.getHistorialActividades()) {
+            ArrayList<String> fila = new ArrayList<>();
 
-    DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
+            
+            if (a instanceof Running running) {
+                fila.add("Running");
+                fila.add(running.getFhInicio().format(formatter));
+                fila.add(running.getFhFin().format(formatter));
+                fila.add(running.getDuracion());
+                fila.add(String.format("%.2f km", running.getDistancia()));                
+                fila.add(String.format("%.2f kcal", running.getKcal()));
+                fila.add(String.valueOf(running.getFcMin()));
+                fila.add(String.valueOf(running.getFcMedia()));
+                fila.add(String.valueOf(running.getFcMax()));
+                fila.add(running.getRitmoMedio());
+                fila.add(String.format("%.2f m", running.getElevacion()));
+                fila.add(String.valueOf(running.getPasosTotales()));
+                fila.add(String.format("%.0f rpm", running.getCadencia()));
+                fila.add(""); // número de largos no aplica
+                fila.add(""); // tipo de agua no aplica
+            } else if (a instanceof Cycling cycling) {
+                fila.add("Ciclismo");
+                fila.add(cycling.getFhInicio().format(formatter));
+                fila.add(cycling.getFhFin().format(formatter));
+                fila.add(cycling.getDuracion());
+                fila.add(String.format("%.2f km", cycling.getDistancia()));
+                fila.add(String.format("%.2f kcal", cycling.getKcal()));
+                fila.add(String.valueOf(cycling.getFcMin()));
+                fila.add(String.valueOf(cycling.getFcMedia()));
+                fila.add(String.valueOf(cycling.getFcMax()));
+                fila.add(""); // ritmo no aplica
+                fila.add(""); // elevación no aplica
+                fila.add(""); // pasos no aplica
+                fila.add(String.format("%.0f rpm", cycling.getCadencia()));
+                fila.add(""); // número de largos no aplica
+                fila.add(""); // tipo de agua no aplica
+            } else if (a instanceof Swimming swimming) {
+                fila.add("Natación");
+                fila.add(swimming.getFhInicio().format(formatter));
+                fila.add(swimming.getFhFin().format(formatter));
+                fila.add(swimming.getDuracion());
+                fila.add(String.format("%.2f km", swimming.getDistancia()));
+                fila.add(String.format("%.2f kcal", swimming.getKcal()));
+                fila.add(String.valueOf(swimming.getFcMin()));
+                fila.add(String.valueOf(swimming.getFcMedia()));
+                fila.add(String.valueOf(swimming.getFcMax()));
+                fila.add(""); // ritmo no aplica
+                fila.add(""); // elevación no aplica
+                fila.add(""); // pasos no aplica
+                fila.add(""); // cadencia no aplica
+                fila.add(String.valueOf(swimming.getNumLargos()));
+                fila.add(swimming.getTipoNatacion() == 0 ? "Piscina" : "Mar");
+            } else {
+                // Actividad genérica
+                fila.add("Actividad genérica");
+                fila.add(a.getFhInicio().format(formatter));
+                fila.add(a.getFhFin().format(formatter));
+                fila.add(a.getDuracion());
+                fila.add(String.format("%.2f km", a.getDistancia()));
+                fila.add(String.format("%.2f kcal", a.getKcal()));
+                fila.add(Integer.toString(a.getFcMin()));
+                fila.add(String.valueOf(a.getFcMedia()));
+                fila.add(String.valueOf(a.getFcMax()));
+                fila.add("");
+                fila.add("");
+                fila.add("");
+                fila.add("");
+                fila.add("");
+                fila.add("");
+            }
 
-    for (Actividad a : actividades) {
-        String tipo = a.getClass().getSimpleName();
-        String extra = "";
-
-        if (a instanceof Running) {
-            extra = "Pasos: " + ((Running) a).getPasosTotales();
-        } else if (a instanceof Swimming) {
-            extra = "Brazadas: " + ((Swimming) a).getNumLargos();
-        } else if (a instanceof Cycling) {
-            extra = "Cadencia: " + ((Cycling) a).getCadencia();
+            // Convertir ArrayList a array y añadir al modelo
+            model.addRow(fila.toArray(new String[0]));
+        
         }
 
-        Object[] fila = {
-            tipo,
-            a.getFhInicio().format(dtf),
-            a.getFhFin().format(dtf),
-            a.getDuracion(),
-            String.format("%.2f", a.getDistancia()),
-            String.format("%.2f", a.getKcal()),
-            a.getFcMax(),
-            a.getFcMin(),
-            extra
-        };
+        // Estilo del encabezado
+        JTableHeader header = tableAct.getTableHeader();
+        header.setFont(new Font("Arial Nova Light", Font.PLAIN, 14));
 
-        modelo.addRow(fila);
+        // Ajustar el ancho de cada columna al contenido
+        for (int col = 0; col < tableAct.getColumnCount(); col++) {
+            
+            TableColumn column = tableAct.getColumnModel().getColumn(col);
+            int maxWidth = 75;
+
+            for (int row = 0; row < tableAct.getRowCount(); row++) {
+                TableCellRenderer renderer = tableAct.getCellRenderer(row, col);
+                Component comp = tableAct.prepareRenderer(renderer, row, col);
+                maxWidth = Math.max(comp.getPreferredSize().width + 10, maxWidth);
+            }
+
+            column.setPreferredWidth(maxWidth);
+        }
     }
-}
 
-    
+    private void cargarHistorialPesos() {
+        DefaultTableModel modeloPeso = (DefaultTableModel) tablePeso.getModel();
+        modeloPeso.setRowCount(0);
+
+        // Estilizar tabla
+        tablePeso.setRowHeight(28);
+        tablePeso.setFont(new Font("Arial Nova Light", Font.PLAIN, 12));
+        tablePeso.getTableHeader().setFont(new Font("Arial Nova Light", Font.PLAIN, 14));
+
+
+        // Obtener datos del historial
+        ArrayList<Peso> historial = usuario.getHistorialPesos();
+
+        for (Peso peso : historial) {
+            ArrayList<String> fila = new ArrayList<>();
+            DateTimeFormatter formatoFecha = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+            
+            fila.add(peso.getFecha().format(formatoFecha));
+            fila.add(String.format("%.1f", peso.getPeso()));
+            fila.add(peso.getIMC());
+
+            modeloPeso.addRow(fila.toArray(new String[0]));
+        }
+        
+        tablePeso.setModel(modeloPeso);
+        
+    }
+
+
+
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -179,15 +308,23 @@ public class MostrarInforme extends javax.swing.JFrame {
         tablePeso.setFont(new java.awt.Font("Arial Nova Light", 0, 12)); // NOI18N
         tablePeso.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null}
             },
             new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
+                "Fecha", "Peso", "IMC"
             }
-        ));
+        ) {
+            Class[] types = new Class [] {
+                java.lang.String.class, java.lang.String.class, java.lang.String.class
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+        });
         scrollPeso.setViewportView(tablePeso);
 
         getContentPane().add(scrollPeso, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 420, 700, 100));

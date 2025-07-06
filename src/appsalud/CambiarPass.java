@@ -83,6 +83,14 @@ public class CambiarPass extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    /**
+    * Evento que se ejecuta al pulsar el botón para cambiar la contraseña.
+    * 
+    * Recoge la contraseña antigua, la nueva y su confirmación de los campos
+    * correspondientes, y llama al método `cambiarPassword` para realizar el cambio.
+    * 
+    * @param evt el evento generado por la pulsación del botón.
+    */
     private void btnCPassActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCPassActionPerformed
         oldPass = pwdOld.getText();
         newPass = pwdNew1.getText();
@@ -90,6 +98,23 @@ public class CambiarPass extends javax.swing.JFrame {
         cambiarPassword(oldPass, newPass, newPassConf);
     }//GEN-LAST:event_btnCPassActionPerformed
 
+    /**
+     * Cambia la contraseña del usuario actual tras validar los datos proporcionados.
+     * 
+     * Proceso de validación:
+     * 1. Comprueba que la contraseña actual introducida coincide con la almacenada.
+     * 2. Verifica que la nueva contraseña cumple con los requisitos de seguridad,
+     *    que varían si el usuario es premium o no.
+     * 3. Comprueba que la nueva contraseña y su confirmación coinciden.
+     * 
+     * Si alguna validación falla, muestra un mensaje de error y aborta el cambio.
+     * Si todas son correctas, actualiza la contraseña, muestra un mensaje de éxito,
+     * serializa los cambios y vuelve al menú principal.
+     * 
+     * @param actual la contraseña actual introducida por el usuario.
+     * @param nueva la nueva contraseña propuesta.
+     * @param confirmacion la confirmación de la nueva contraseña.
+     */
     private void cambiarPassword(String actual, String nueva, String confirmacion) {
         
         // 1. Verificar la contraseña actual        
@@ -99,7 +124,7 @@ public class CambiarPass extends javax.swing.JFrame {
         }
         // 2. Verificar que la nueva cumple los requisitos
         //Si es premium
-        if(UsuariosManager.existeUsuarioPremium(usuario)){
+        if(UsuariosManager.existeUsuarioPremium(usuario.getUsername())){
             if (!UsuarioPremium.validarPasswordPremium(nueva)) { 
                 JOptionPane.showMessageDialog(this, "La nueva contraseña no cumple con los requisitos de seguridad.", "Error", JOptionPane.WARNING_MESSAGE);
                 return;

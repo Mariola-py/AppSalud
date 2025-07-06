@@ -143,6 +143,15 @@ public class RunningFrame extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    /**
+     * Evento que se ejecuta al pulsar el botón "Registrar".
+     * Recoge los datos de la interfaz (fecha y hora de inicio y fin, distancia, 
+     * frecuencia cardíaca máxima y mínima, número de pasos y elevación),
+     * valida la actividad y, si es válida, crea una instancia de Running, 
+     * la añade al historial del usuario, guarda los cambios y vuelve al menú principal.
+     *
+     * @param evt El evento de acción generado por el botón.
+     */
     private void btnRegistrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistrarActionPerformed
         //Recoger inputs
         Date dateInicio = (Date) spinnerInicio.getValue();
@@ -169,7 +178,7 @@ public class RunningFrame extends javax.swing.JFrame {
             
             //Serializar
             UsuariosManager manager = UsuariosManager.getInstance();
-        manager.guardarUsuarios();
+            manager.guardarUsuarios();
             
             //Volver al menú principal
             MenuPrincipal menu = new MenuPrincipal();

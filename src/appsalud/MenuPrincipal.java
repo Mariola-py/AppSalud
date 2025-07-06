@@ -119,39 +119,76 @@ public class MenuPrincipal extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    /**
+     * Evento que se ejecuta al pulsar el botón para mostrar el informe.
+     * 
+     * Crea una nueva ventana de MostrarInforme, la hace visible y cierra la ventana actual.
+     * 
+     * @param evt Evento que dispara la acción (pulsar botón).
+     */
     private void btnInformeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInformeActionPerformed
         MostrarInforme informe = new MostrarInforme();
         informe.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_btnInformeActionPerformed
 
+    /**
+     * Evento que se ejecuta al pulsar el botón para registrar el peso.
+     * 
+     * Crea una nueva ventana de RegistroPeso, la muestra y cierra la ventana actual.
+     * 
+     * @param evt Evento que dispara la acción (pulsar botón).
+     */
     private void btnPesoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPesoActionPerformed
         RegistroPeso rPeso = new RegistroPeso();
         rPeso.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_btnPesoActionPerformed
 
+    /**
+     * Evento que se ejecuta al pulsar el botón para registrar una nueva actividad.
+     * 
+     * Abre la ventana de RegistroActividad, la muestra y cierra la ventana actual.
+     * 
+     * @param evt Evento que dispara la acción (pulsar botón).
+     */
     private void btnActividadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActividadActionPerformed
         RegistroActividad rActividad = new RegistroActividad();
         rActividad.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_btnActividadActionPerformed
     
+    /**
+     * Evento que se ejecuta al pulsar el botón para cambiar la contraseña.
+     * 
+     * Abre la ventana de CambiarPass, la muestra y cierra la ventana actual.
+     * 
+     * @param evt Evento que dispara la acción (pulsar botón).
+     */
     private void btnCambiarContraseñaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCambiarContraseñaActionPerformed
         CambiarPass cambiarPass = new CambiarPass();
         cambiarPass.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_btnCambiarContraseñaActionPerformed
 
+    /**
+     * Evento que se ejecuta al pulsar el botón para gestionar la suscripción premium.
+     * 
+     * - Si el usuario ya tiene una suscripción premium activa, muestra un mensaje informativo.
+     * - Si el usuario tiene una suscripción caducada, pregunta si desea reactivarla y en función de la respuesta
+     *   abre la ventana para reactivar o muestra un mensaje informando que ya no es premium.
+     * - Si el usuario no tiene cuenta premium, abre la ventana para crear una cuenta premium.
+     * 
+     * @param evt Evento que dispara la acción (pulsar botón).
+     */
     private void btnGoPremiumActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGoPremiumActionPerformed
-        if(existeUsuarioPremium(usuario) !=null && existeUsuarioPremium(usuario).esPremium()){ //El usuario ya tiene una suscripción premium activa
+        if(UsuariosManager.existeUsuarioPremium(usuario.getUsername())  && UsuariosManager.dameUsuarioPremium(usuario.getUsername()).esPremium()){ //El usuario ya tiene una suscripción premium activa
             JOptionPane.showMessageDialog(null, "Ya eres premium.", "", JOptionPane.INFORMATION_MESSAGE);
-        }else if(existeUsuarioPremium(usuario) !=null && !existeUsuarioPremium(usuario).esPremium()){ //El usuario existe pero se ha caducado la suscripcion
+        }else if(!UsuariosManager.dameUsuarioPremium(usuario.getUsername()).esPremium() && UsuariosManager.existeUsuarioPremium(usuario.getUsername())){ //El usuario existe pero se ha caducado la suscripcion
             int opcion = JOptionPane.showConfirmDialog(null, "Tu suscripción premium ha caducado. ¿Quieres reactivarla?");
             if (opcion == JOptionPane.YES_OPTION){
-                ReactivarSuscripcion reactivarSuscripcion = new ReactivarSuscripcion(usuario);
-                reactivarSuscripcion.setVisible(true);
-                this.dispose();
+                UsuariosManager.dameUsuarioPremium(usuario.getUsername()).renovarSuscripcion();
+                JOptionPane.showMessageDialog(null, "Vuelves a ser premium.");
             } else if (opcion == JOptionPane.NO_OPTION){
                 JOptionPane.showMessageDialog(null, "Ya no eres premium.");
             } 
@@ -162,22 +199,6 @@ public class MenuPrincipal extends javax.swing.JFrame {
         }
         
     }//GEN-LAST:event_btnGoPremiumActionPerformed
-
-    /**
-     * Función que comprueba si existe una cuenta premium de un usuario.
-     * @param Usuario usuario
-     * @return UsuarioPremium si existe, null si no existe
-     */
-    private UsuarioPremium existeUsuarioPremium(Usuario usuario){
-        
-        ArrayList<UsuarioPremium> listaUsuariosP = UsuariosManager.cargarUsuariosPremium();
-        for(UsuarioPremium u : listaUsuariosP){
-            if(u.getUsername().equalsIgnoreCase(usuario.getUsername())){
-                return u;
-            }
-        }
-        return null;
-    }
     
     /**
      * @param args the command line arguments

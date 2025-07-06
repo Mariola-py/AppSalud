@@ -21,8 +21,6 @@ public class GoPremium extends javax.swing.JFrame {
     public GoPremium() {
         initComponents();
     }
-    
-    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -109,6 +107,25 @@ public class GoPremium extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    /**
+     * Maneja el evento de pulsar el botón para pasar a usuario Premium.
+     * 
+     * Realiza las siguientes comprobaciones:
+     *  - Que la nueva contraseña y su confirmación coincidan.
+     *  - Que la nueva contraseña cumpla los requisitos de seguridad para usuarios Premium.
+     *  - Que la contraseña actual introducida sea correcta.
+     * 
+     * Si todas las validaciones son correctas:
+     *  - Actualiza la contraseña del usuario.
+     *  - Crea un nuevo objeto UsuarioPremium con los datos correspondientes.
+     *  - Añade el usuario Premium al gestor de usuarios.
+     *  - Muestra un mensaje indicando que la cuenta ha sido creada con éxito.
+     *  - Redirige al usuario al menú principal y cierra la ventana actual.
+     * 
+     * En caso de error, muestra mensajes específicos para cada fallo.
+     * 
+     * @param evt Evento que dispara la acción (pulsar botón).
+     */
     private void btnGoPremiumActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGoPremiumActionPerformed
         
         tipoSusc = cboxTipo.getSelectedIndex();

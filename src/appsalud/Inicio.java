@@ -83,7 +83,13 @@ public class Inicio extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     
-    
+    /**
+     * Evento que se dispara al pulsar el botón "Crear Cuenta".
+     * 
+     * Cierra la ventana actual y abre la ventana de registro (SignUp).
+     * 
+     * @param evt Evento que dispara la acción (pulsar botón).
+     */
     private void btnCrearCuentaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCrearCuentaActionPerformed
         // TODO add your handling code here:
         SignUp signUp = new SignUp();
@@ -91,6 +97,13 @@ public class Inicio extends javax.swing.JFrame {
         signUp.setVisible(true);
     }//GEN-LAST:event_btnCrearCuentaActionPerformed
 
+    /**
+     * Evento que se dispara al pulsar el botón "Inicio de Sesión".
+     * 
+     * Oculta la ventana actual y muestra la ventana de login (Login).
+     * 
+     * @param evt Evento que dispara la acción (pulsar botón).
+     */
     private void btnInicioSesionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInicioSesionActionPerformed
         // TODO add your handling code here:
         Login login = new Login();

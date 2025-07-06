@@ -13,7 +13,6 @@ public class Login extends javax.swing.JFrame {
 
     static String username;
     static String password;
-    static ArrayList<Usuario> listaUsuarios;
     
     /**
      * Creates new form SignUp
@@ -79,6 +78,15 @@ public class Login extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    /**
+     * Evento que se ejecuta al pulsar el botón de inicio de sesión.
+     * 
+     * Recoge el nombre de usuario y la contraseña introducidos, verifica si el usuario existe
+     * y si es así, inicia la sesión, muestra un mensaje de bienvenida, abre el menú principal
+     * y cierra la ventana actual. Si el usuario no existe, muestra un mensaje de error.
+     * 
+     * @param evt Evento que dispara la acción (pulsar botón).
+     */
     private void btnInicioSesionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInicioSesionActionPerformed
         username = txtUsername.getText();
         password = passwordFieldSU.getText();
@@ -87,7 +95,10 @@ public class Login extends javax.swing.JFrame {
 
         if (usuarioLogueado == null) {
             JOptionPane.showMessageDialog(null, "El usuario o la contraseña no es correcto", "Error de login", JOptionPane.ERROR_MESSAGE);
-        } else {
+        } else if(password.equalsIgnoreCase(usuarioLogueado.getPassword())) {
+            JOptionPane.showMessageDialog(null, "El usuario o la contraseña no es correcto", "Error de login", JOptionPane.ERROR_MESSAGE);
+        }
+        else {
             JOptionPane.showMessageDialog(null, "¡Bienvenido, " + usuarioLogueado.getNombre() + "!", "Login exitoso", JOptionPane.INFORMATION_MESSAGE);
             Sesion.iniciarSesion(usuarioLogueado);
             MenuPrincipal menu = new MenuPrincipal();

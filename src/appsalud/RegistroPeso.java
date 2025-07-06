@@ -77,6 +77,13 @@ public class RegistroPeso extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    /**
+     * Acción realizada al pulsar el botón para registrar un peso.
+     * Recoge el peso y la fecha desde los componentes UI, crea un objeto Peso,
+     * lo añade al historial del usuario, guarda los cambios y vuelve al menú principal.
+     *
+     * @param evt Evento generado por la acción del botón.
+     */
     private void btnPesoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPesoActionPerformed
         //Obtener peso
         pesoRegistrar = (float) spinnerRPeso.getValue();

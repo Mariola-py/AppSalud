@@ -5,7 +5,11 @@ import java.time.LocalDate;
 import java.time.Period;
 import java.util.Comparator;
 
-
+/**
+ * Representa un usuario del sistema con sus datos personales, historial de pesos,
+ * historial de actividades físicas y otros atributos relacionados.
+ * Implementa Serializable para permitir la serialización del objeto.
+ */
 public class Usuario implements Serializable{
     
     private static final long serialVersionUID = 1L;
@@ -21,9 +25,21 @@ public class Usuario implements Serializable{
     private float altura;
     private ArrayList<Peso> historialPesos;
     private ArrayList<Actividad> historialActividades;
-    private int factorActividad; /*0 Sedentario (1.2), 1 Ligera (1.375), 2 Moderada (1.55), 3 Intensa (1.725), 4 Atletas (1.9)*/
+    private int factorActividad; //*0 Sedentario (1.2), 1 Ligera (1.375), 2 Moderada (1.55), 3 Intensa (1.725), 4 Atletas (1.9)
     
-    
+    /**
+     * Constructor principal para crear un usuario con todos sus datos iniciales.
+     * 
+     * @param username Nombre de usuario.
+     * @param password Contraseña del usuario.
+     * @param nombre Nombre real del usuario.
+     * @param apellidos Apellidos del usuario.
+     * @param fechaNacimiento Fecha de nacimiento del usuario.
+     * @param altura Altura del usuario en centímetros.
+     * @param sexo Sexo del usuario (0 para varón, 1 para hembra).
+     * @param peso Peso inicial del usuario.
+     * @param factorActividad Nivel de actividad física (0 a 4).
+     */
     public Usuario(String username, String password, String nombre, String apellidos, LocalDate fechaNacimiento, float altura, int sexo, float peso, int factorActividad){
         this.username = username;
         this.password = password;
@@ -41,8 +57,11 @@ public class Usuario implements Serializable{
 
     }
     
-    //Constructor de copia
-    
+     /**
+     * Constructor de copia que crea un nuevo usuario copiando los datos de otro.
+     * 
+     * @param otro Usuario del cual copiar los datos.
+     */
     public Usuario(Usuario otro){
         this.username = otro.username;
         this.password = otro.password;
@@ -59,6 +78,13 @@ public class Usuario implements Serializable{
         
     }
 
+    /**
+     * Calcula y devuelve un mensaje con el índice de masa corporal (IMC)
+     * basado en el peso proporcionado.
+     * 
+     * @param peso Peso para calcular el IMC.
+     * @return String con el valor del IMC y una interpretación del estado corporal.
+     */
     public String getIMC(float peso){
         float imc;
         imc = (peso / ((getAltura()/100)*(getAltura()/100)));
@@ -73,45 +99,16 @@ public class Usuario implements Serializable{
         }
         else {
             return ("IMC: "+imc+". Muy por encima del peso recomendado.");
-        }
-                
-    }
-    
-    /**
-     * @return the username
-     */
-    public String getUsername() {
-        return username;
+        }       
     }
 
     /**
-     * @param peso the peso to set
+     * Valida si la contraseña proporcionada cumple con los requisitos mínimos:
+     * al menos 6 caracteres, contiene letras y números.
+     * 
+     * @param password Contraseña a validar.
+     * @return true si la contraseña es válida, false en caso contrario.
      */
-    public void setPeso(float peso) {
-        this.peso = peso;
-    }
-
-    /**
-     * @return the password
-     */
-    public String getPassword() {
-        return password;
-    }
-
-    /**
-     * @return the nombre
-     */
-    public String getNombre() {
-        return nombre;
-    }
-
-    /**
-     * @param password the password to set
-     */
-    public void setPassword(String password) {
-        this.password = password;
-    }
-    
     public boolean validarPassword(String password){
         
         if (password.length() < 6) {
@@ -131,7 +128,13 @@ public class Usuario implements Serializable{
         }
         return false;
     }
-    
+
+    /**
+     * Registra un nuevo peso en el historial del usuario.
+     * Ordena el historial cronológicamente y actualiza el atributo de peso actual.
+     * 
+     * @param nuevoPeso Objeto de tipo Peso a registrar.
+     */
     public void registrarPeso(Peso nuevoPeso){
         //Añadir peso al historial
         getHistorialPesos().add(nuevoPeso);
@@ -141,65 +144,129 @@ public class Usuario implements Serializable{
         Peso pesoUltimo = getHistorialPesos().get(getHistorialPesos().size()-1);
         this.peso = pesoUltimo.getPeso();
     }
+    
+    /**
+     * Obtiene el nombre de usuario.
+     * 
+     * @return Nombre de usuario.
+     */
+    public String getUsername() {
+        return username;
+    }
 
     /**
-     * @return the edad
+     * Establece el peso del usuario.
+     * 
+     * @param peso Nuevo peso a establecer.
+     */
+    public void setPeso(float peso) {
+        this.peso = peso;
+    }
+
+    /**
+     * Obtiene la contraseña del usuario.
+     * 
+     * @return Contraseña.
+     */
+    public String getPassword() {
+        return password;
+    }
+
+    /**
+     * Obtiene el nombre del usuario.
+     * 
+     * @return Nombre.
+     */
+    public String getNombre() {
+        return nombre;
+    }
+
+    /**
+     * Establece la contraseña del usuario.
+     * 
+     * @param password Nueva contraseña a establecer.
+     */
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    /**
+     * Obtiene la edad del usuario.
+     * 
+     * @return Edad.
      */
     public int getEdad() {
         return edad;
     }
 
     /**
-     * @return the sexo
+     * Obtiene el sexo del usuario.
+     * 0 para varón, 1 para hembra.
+     * 
+     * @return Sexo.
      */
     public int getSexo() {
         return sexo;
     }
 
     /**
-     * @return the peso
+     * Obtiene el peso actual del usuario.
+     * 
+     * @return Peso.
      */
     public float getPeso() {
         return peso;
     }
 
     /**
-     * @return the historialPesos
+     * Obtiene el historial de pesos del usuario.
+     * 
+     * @return Lista de objetos Peso.
      */
     public ArrayList<Peso> getHistorialPesos() {
         return historialPesos;
     }
 
     /**
-     * @return the historialActividades
+     * Obtiene el historial de actividades del usuario.
+     * 
+     * @return Lista de actividades realizadas.
      */
     public ArrayList<Actividad> getHistorialActividades() {
         return historialActividades;
     }
 
     /**
-     * @return the apellidos
+     * Obtiene los apellidos del usuario.
+     * 
+     * @return Apellidos.
      */
     public String getApellidos() {
         return apellidos;
     }
 
     /**
-     * @return the fechaNacimiento
+     * Obtiene la fecha de nacimiento del usuario.
+     * 
+     * @return Fecha de nacimiento.
      */
     public LocalDate getFechaNacimiento() {
         return fechaNacimiento;
     }
 
     /**
-     * @return the altura
+     * Obtiene la altura del usuario en centímetros.
+     * 
+     * @return Altura.
      */
     public float getAltura() {
         return altura;
     }
 
     /**
-     * @return the factorActividad
+     * Obtiene el nivel de actividad física del usuario.
+     * 
+     * @return Factor de actividad.
      */
     public int getFactorActividad() {
         return factorActividad;

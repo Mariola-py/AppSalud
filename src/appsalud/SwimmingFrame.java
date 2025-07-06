@@ -147,6 +147,16 @@ public class SwimmingFrame extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    /**
+     * Evento que se ejecuta al pulsar el botón de registrar actividad de natación.
+     * 
+     * Recoge los datos introducidos por el usuario (fecha y hora de inicio y fin,
+     * distancia, frecuencia cardíaca máxima y mínima, número de largos y tipo de natación),
+     * valida la actividad y, si es válida, crea un objeto Swimming con esos datos.
+     * Añade la actividad al historial del usuario, guarda los cambios y vuelve al menú principal.
+     * 
+     * @param evt El evento de acción que dispara este método.
+     */
     private void btnRegistrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistrarActionPerformed
         //Recoger inputs
         Date dateInicio = (Date) spinnerInicio.getValue();

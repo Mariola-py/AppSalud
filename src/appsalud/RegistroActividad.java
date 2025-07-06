@@ -84,24 +84,40 @@ public class RegistroActividad extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    /**
+     * Abre la ventana para registrar una actividad genérica y cierra la ventana actual.
+     * @param evt Evento generado por la acción del botón.
+     */
     private void btnGenericaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGenericaActionPerformed
         ActividadGenerica generica = new ActividadGenerica();
         generica.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_btnGenericaActionPerformed
 
+    /**
+     * Abre la ventana para registrar una actividad de running y cierra la ventana actual.
+     * @param evt Evento generado por la acción del botón.
+     */
     private void btnRunningActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRunningActionPerformed
         RunningFrame running = new RunningFrame();
         running.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_btnRunningActionPerformed
 
+    /**
+     * Abre la ventana para registrar una actividad de ciclismo y cierra la ventana actual.
+     * @param evt Evento generado por la acción del botón.
+     */
     private void btnCyclingActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCyclingActionPerformed
         CyclingFrame cycling = new CyclingFrame();
         cycling.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_btnCyclingActionPerformed
 
+    /**
+     * Abre la ventana para registrar una actividad de natación y cierra la ventana actual.
+     * @param evt Evento generado por la acción del botón.
+     */
     private void btnSwimmingActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSwimmingActionPerformed
         SwimmingFrame swimming = new SwimmingFrame();
         swimming.setVisible(true);

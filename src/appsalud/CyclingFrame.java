@@ -6,10 +6,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import javax.swing.JOptionPane;
 
-/**
- *
- * @author garci
- */
+
 public class CyclingFrame extends javax.swing.JFrame {
 
     private Usuario usuario = Sesion.getUsuarioActual();
@@ -131,6 +128,22 @@ public class CyclingFrame extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    /**
+     * Maneja el evento de pulsar el botón Registrar.
+     * 
+     * Recoge los datos introducidos por el usuario en los spinners, 
+     * valida que los valores sean correctos para crear una actividad de ciclismo.
+     * Si la validación es exitosa:
+     *  - Crea un objeto Cycling con los datos introducidos.
+     *  - Muestra un mensaje informando que la actividad fue creada con éxito.
+     *  - Añade la actividad al historial del usuario.
+     *  - Serializa los usuarios para guardar los cambios.
+     *  - Redirige al usuario al menú principal y cierra la ventana actual.
+     * 
+     * Si la validación falla, no realiza ninguna acción adicional.
+     * 
+     * @param evt Evento que desencadena esta acción (pulsar botón).
+     */
     private void btnRegistrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistrarActionPerformed
         //Recoger inputs
         Date dateInicio = (Date) spinnerInicio.getValue();
