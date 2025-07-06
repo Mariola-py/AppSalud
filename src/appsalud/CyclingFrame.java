@@ -6,7 +6,11 @@ import java.util.ArrayList;
 import java.util.Date;
 import javax.swing.JOptionPane;
 
-
+/**
+ * Ventana para registrar una sesión de actividad tipo Cycling.
+ * 
+ * @author Mariola
+ */
 public class CyclingFrame extends javax.swing.JFrame {
 
     private Usuario usuario = Sesion.getUsuarioActual();
@@ -18,7 +22,7 @@ public class CyclingFrame extends javax.swing.JFrame {
     private float cadencia;
     
     /**
-     * Creates new form CyclingFrame
+     * Crea una nueva instancia de la ventana para registrar una sesión de ciclismo.
      */
     public CyclingFrame() {
         initComponents();

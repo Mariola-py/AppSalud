@@ -5,13 +5,33 @@ import java.util.ArrayList;
 import java.util.Date;
 import javax.swing.JOptionPane;
 
-
+/**
+ * JFrame para registrar un cambio de peso del usuario.
+ * Permite introducir un peso en kilogramos y una fecha para dicho registro,
+ * y añade el nuevo peso al historial del usuario actual.
+ * 
+ * @author 
+ */
 public class RegistroPeso extends javax.swing.JFrame {
 
+	/**
+     * Usuario actual en sesión que realizará el registro de peso.
+     */
     private Usuario usuario = Sesion.getUsuarioActual();
+
+    /**
+     * Peso que se va a registrar.
+     */
     private float pesoRegistrar;
+
+    /**
+     * Fecha del registro de peso.
+     */
     private LocalDate fechaPR;
-    
+
+    /**
+     * Constructor que inicializa la ventana de registro de peso.
+     */
     public RegistroPeso() {
         initComponents();
     }

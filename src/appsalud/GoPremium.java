@@ -6,7 +6,14 @@ import java.util.ArrayList;
 import javax.swing.JOptionPane;
 
 
-
+/**
+ * Ventana para gestionar la actualización de un usuario a Premium.
+ * 
+ * Esta interfaz permite al usuario seleccionar una cuota mensual o anual 
+ * y registrar la fecha de alta como usuario premium.
+ * 
+ * @author Mariola
+ */
 public class GoPremium extends javax.swing.JFrame {
     
     private Usuario usuario = Sesion.getUsuarioActual();
@@ -16,7 +23,7 @@ public class GoPremium extends javax.swing.JFrame {
     private static String newPassConf; 
     
     /**
-     * Creates new form GoPremium
+     * Crea una nueva instancia de la ventana para hacerse premium.
      */
     public GoPremium() {
         initComponents();

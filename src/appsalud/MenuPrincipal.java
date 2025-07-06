@@ -1,27 +1,35 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
+
 package appsalud;
 
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 
 /**
- *
- * @author garci
+ * Clase que representa la ventana principal de la aplicación,
+ * donde el usuario puede acceder a las diferentes funcionalidades disponibles.
+ * 
+ * Muestra un saludo personalizado, botones para cambiar contraseña, hacerse premium,
+ * registrar peso, registrar actividad y mostrar informes.
+ * 
+ * Gestiona la navegación entre ventanas y el estado de suscripción premium del usuario.
+ * 
+ * @author Mariola
  */
 public class MenuPrincipal extends javax.swing.JFrame {
 
+	/** Usuario actualmente logueado en sesión */
     Usuario usuario = Sesion.getUsuarioActual();
+
+    /** Lista de usuarios (no usada actualmente) */
     ArrayList<Usuario> listaUsuarios;
+
+    /** Lista de usuarios premium (no usada actualmente) */
     ArrayList<UsuarioPremium> listaUsuariosPremium;
 
-    
     /**
-     * Creates new form MenuPrincipal
+     * Constructor que inicializa la ventana y configura el saludo personalizado
+     * mostrando el nombre del usuario actual.
      */
-     
     public MenuPrincipal() {
         initComponents();
         lblHola.setText("Hola, "+ usuario.getNombre());

@@ -4,8 +4,19 @@ import java.time.Duration;
 import java.time.LocalDateTime;
 import javax.swing.JOptionPane;
 
+/**
+ * Representa una actividad de ciclismo realizada por el usuario.
+ * <p>
+ * Esta clase hereda de {@link Actividad} e incluye atributos específicos del ciclismo como la
+ * cadencia media en pedaladas por minuto. Al instanciarse, ajusta el cálculo de calorías
+ * multiplicándolo por 1.2 respecto al valor base calculado en {@link Actividad}.
+ * </p>
+ * 
+ * @author Mariola
+ */
 public class Cycling extends Actividad{
 
+    /** Cadencia media en pedaladas por minuto (rpm) durante la actividad. */
     private float cadencia;
     
     /**

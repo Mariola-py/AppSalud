@@ -1,10 +1,20 @@
 package appsalud;
 
 import java.io.Serializable;
+
 import java.time.Duration;
 import java.time.LocalDateTime;
 import javax.swing.JOptionPane;
 
+/**
+ * Clase base que representa una actividad física genérica realizada por un usuario.
+ * Sirve como clase padre para actividades específicas como correr, nadar o montar en bicicleta.
+ * 
+ * Almacena información como la fecha de inicio y fin de la actividad, duración, distancia,
+ * calorías quemadas y datos de frecuencia cardíaca.
+ * 
+ * @author Mariola
+ */
 public class Actividad implements Serializable{
     private final LocalDateTime fhInicio;
     private final LocalDateTime fhFin;

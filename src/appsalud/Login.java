@@ -4,18 +4,26 @@ import java.util.ArrayList;
 import javax.swing.JOptionPane;
 
 
-
 /**
+ * Ventana de inicio de sesión para la aplicación Infitnity.
  *
- * @author garci
+ * Esta clase permite al usuario introducir su nombre de usuario y contraseña para iniciar sesión.
+ * Si las credenciales son válidas, se inicia la sesión y se abre el menú principal.
+ * En caso contrario, se muestra un mensaje de error.
+ * 
+ * @author Mariola
  */
+
 public class Login extends javax.swing.JFrame {
 
+	/** Nombre de usuario introducido por el usuario */
     static String username;
+
+    /** Contraseña introducida por el usuario */
     static String password;
-    
+
     /**
-     * Creates new form SignUp
+     * Crea una nueva ventana de inicio de sesión.
      */
     public Login() {
         initComponents();

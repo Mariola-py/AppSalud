@@ -6,19 +6,68 @@ import java.util.ArrayList;
 import java.util.Date;
 import javax.swing.JOptionPane;
 
-
+/**
+ * Clase <b>ActividadGenerica</b> que representa una ventana JFrame para que el usuario
+ * registre una actividad física genérica (sin tipo específico como correr, nadar o ir en bici).
+ * 
+ * Permite introducir:
+ * <ul>
+ *   <li>Fecha y hora de inicio y fin</li>
+ *   <li>Distancia recorrida</li>
+ *   <li>Frecuencia cardíaca máxima y mínima</li>
+ * </ul>
+ * 
+ * Tras validar los datos, la actividad se guarda en el historial del usuario actual
+ * y se serializa para su persistencia. Finalmente, se muestra un mensaje de éxito
+ * y se redirige al menú principal.
+ * 
+ * Esta clase usa los siguientes componentes Swing:
+ * <ul>
+ *   <li>JSpinners para recoger fecha/hora, distancia y frecuencias</li>
+ *   <li>JButton para registrar la actividad</li>
+ *   <li>JLabels para mostrar la interfaz informativa</li>
+ * </ul>
+ * 
+ * @author Mariola
+ * @version 1.0
+ */
 public class ActividadGenerica extends javax.swing.JFrame {
 
-    private Usuario usuario = Sesion.getUsuarioActual();
-    private LocalDateTime fhInicio;
-    private LocalDateTime fhFin;
-    private float distancia;
-    private int fcMax;
-    private int fcMin;
+	// Atributos
+
+	/**
+	 * Usuario que está actualmente en sesión y registrará la actividad.
+	 */
+	private Usuario usuario = Sesion.getUsuarioActual();
+
+	/**
+	 * Fecha y hora de inicio de la actividad.
+	 */
+	private LocalDateTime fhInicio;
+
+	/**
+	 * Fecha y hora de fin de la actividad.
+	 */
+	private LocalDateTime fhFin;
+
+	/**
+	 * Distancia recorrida durante la actividad (en kilómetros).
+	 */
+	private float distancia;
+
+	/**
+	 * Frecuencia cardíaca máxima alcanzada (en ppm).
+	 */
+	private int fcMax;
+
+	/**
+	 * Frecuencia cardíaca mínima alcanzada (en ppm).
+	 */
+	private int fcMin;
     
-    /**
-     * Creates new form ActividadGenerica
-     */
+	/**
+	 * Constructor por defecto que inicializa los componentes de la interfaz gráfica.
+	 */
     public ActividadGenerica() {
         initComponents();
     }

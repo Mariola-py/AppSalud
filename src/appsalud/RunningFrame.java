@@ -7,22 +7,57 @@ import java.util.Date;
 import javax.swing.JOptionPane;
 
 /**
- *
- * @author garci
+ * JFrame para registrar una sesión de running.
+ * Permite introducir fecha y hora de inicio y fin, distancia, frecuencia cardíaca máxima y mínima,
+ * número de pasos y elevación. Al registrar, crea un objeto {@link Running} y lo añade al historial
+ * del usuario actual.
+ * 
+ * @author Mariola
  */
 public class RunningFrame extends javax.swing.JFrame {
 
+	/**
+     * Usuario actual en sesión.
+     */
     private Usuario usuario = Sesion.getUsuarioActual();
+
+    /**
+     * Fecha y hora de inicio de la sesión de running.
+     */
     private LocalDateTime fhInicio;
+
+    /**
+     * Fecha y hora de fin de la sesión de running.
+     */
     private LocalDateTime fhFin;
+
+    /**
+     * Distancia recorrida en kilómetros.
+     */
     private float distancia;
+
+    /**
+     * Frecuencia cardíaca máxima en pulsaciones por minuto.
+     */
     private int fcMax;
+
+    /**
+     * Frecuencia cardíaca mínima en pulsaciones por minuto.
+     */
     private int fcMin;
+
+    /**
+     * Elevación en metros durante la sesión.
+     */
     private float elevacion;
+
+    /**
+     * Número total de pasos dados durante la sesión.
+     */
     private int numPasos;
     
     /**
-     * Creates new form RunningFrame
+     * Constructor que crea e inicializa los componentes de la interfaz.
      */
     public RunningFrame() {
         initComponents();

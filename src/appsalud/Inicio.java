@@ -5,8 +5,12 @@
 package appsalud;
 
 /**
- *
- * @author garci
+ * Ventana de inicio de la aplicación Infitnity.
+ * 
+ * Desde aquí, el usuario puede elegir entre iniciar sesión o crear una cuenta nueva.
+ * Esta clase gestiona los eventos de navegación entre las pantallas de Login y SignUp.
+ * 
+ * @author Mariola
  */
 import java.awt.Graphics;
 import java.awt.Graphics2D;
@@ -18,8 +22,8 @@ import javax.swing.JPanel;
 public class Inicio extends javax.swing.JFrame {
 
     
-    /**
-     * Creates new form Inicio
+	/**
+     * Crea una nueva instancia de la ventana de inicio.
      */
     public Inicio() {
         initComponents();

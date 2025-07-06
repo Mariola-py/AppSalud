@@ -6,8 +6,28 @@ import java.util.Date;
 import javax.swing.JOptionPane;
 
 /**
+ * Clase SignUp que representa la interfaz gráfica para el registro de nuevos usuarios
+ * en la aplicación. Permite introducir datos personales, validar los datos
+ * introducidos y registrar un nuevo usuario en el sistema.
  *
- * @author garci
+ * Atributos estáticos:
+ * <ul>
+ *   <li>username - Nombre de usuario introducido.</li>
+ *   <li>password - Contraseña introducida.</li>
+ *   <li>password2 - Confirmación de la contraseña.</li>
+ *   <li>nombre - Nombre del usuario.</li>
+ *   <li>apellidos - Apellidos del usuario.</li>
+ *   <li>fechaNacimiento - Fecha de nacimiento del usuario.</li>
+ *   <li>sexo - Sexo del usuario (0: Varón, 1: Hembra).</li>
+ *   <li>peso - Peso en kilogramos.</li>
+ *   <li>altura - Altura en centímetros.</li>
+ *   <li>factorActividad - Nivel de actividad física diaria.</li>
+ * </ul>
+ * 
+ * Utiliza la clase {@link Usuario} para instanciar un nuevo usuario
+ * y la clase {@link UsuariosManager} para gestionarlos.
+ * 
+ * @author Mariola
  */
 public class SignUp extends javax.swing.JFrame {
     
@@ -201,10 +221,23 @@ public class SignUp extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btnCrearCuentaActionPerformed
 
+    
     private void cboxSexoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cboxSexoActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_cboxSexoActionPerformed
 
+    /**
+     * Valida los datos introducidos por el usuario antes de crear la cuenta.
+     * Comprueba que el nombre de usuario no esté vacío ni repetido, que las
+     * contraseñas coincidan y cumplan los requisitos de seguridad, y que el
+     * nombre y apellidos no estén vacíos.
+     * 
+     * @param username Nombre de usuario.
+     * @param password Contraseña.
+     * @param nombre Nombre personal.
+     * @param apellidos Apellidos personales.
+     * @return true si los datos son válidos, false en caso contrario.
+     */
     private boolean validarUsuario(String username, String password, String nombre, String apellidos){
         
         boolean passwordValido = validarPassword(password);
@@ -237,6 +270,13 @@ public class SignUp extends javax.swing.JFrame {
             return true;
     }
     
+    /**
+     * Valida que una contraseña tenga al menos 6 caracteres y contenga
+     * tanto letras como números.
+     * 
+     * @param password Contraseña a validar.
+     * @return true si la contraseña es válida, false si no lo es.
+     */
     private static boolean validarPassword(String password){
         
         if (password.length() < 6) {

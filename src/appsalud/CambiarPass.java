@@ -3,9 +3,24 @@ import java.io.*;
 import javax.swing.JOptionPane;
 import java.util.ArrayList;
 
-
+/**
+* Ventana de la aplicación que permite al usuario cambiar su contraseña.
+* 
+* Esta clase proporciona una interfaz gráfica para que el usuario actual (obtenido desde la clase {@link Sesion})
+* pueda actualizar su contraseña previa verificación. La validación incluye:
+* <ul>
+*   <li>Verificación de la contraseña actual.</li>
+*   <li>Validación de requisitos de seguridad para la nueva contraseña (según tipo de usuario).</li>
+*   <li>Confirmación de coincidencia entre nueva contraseña y su repetición.</li>
+* </ul>
+* 
+* Tras una actualización exitosa, los datos son guardados mediante {@link UsuariosManager#guardarUsuarios()}.
+* 
+* @author Mariola
+*/
 public class CambiarPass extends javax.swing.JFrame {
     
+	/** Usuario actual que está logueado en el sistema. */
     Usuario usuario = Sesion.getUsuarioActual();
 
     static String oldPass;
@@ -13,7 +28,7 @@ public class CambiarPass extends javax.swing.JFrame {
     static String newPassConf;
     
     /**
-     * Creates new form CambiarPass
+     * Constructor por defecto. Inicializa los componentes de la interfaz.
      */
     public CambiarPass() {
         initComponents();

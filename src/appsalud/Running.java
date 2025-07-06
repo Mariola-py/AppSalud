@@ -5,11 +5,34 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import javax.swing.JOptionPane;
 
+/**
+ * Clase que representa una actividad de Running.
+ * Hereda de la clase {@link Actividad} y añade información específica
+ * como ritmo medio, elevación, total de pasos y cadencia.
+ * Calcula la cadencia (pasos por minuto) y el ritmo medio (minutos por kilómetro).
+ * 
+ * @author Mariola
+ */
 public class Running extends Actividad{
 
+	/**
+     * Ritmo medio de la actividad expresado en minutos y segundos por kilómetro (mm:ss).
+     */
     private String ritmoMedio;
+
+    /**
+     * Elevación total acumulada durante la actividad (en metros).
+     */
     private float elevacion;
+
+    /**
+     * Número total de pasos dados durante la actividad.
+     */
     private int pasosTotales;
+
+    /**
+     * Cadencia calculada como pasos por minuto.
+     */
     private double cadencia;
 
     /**

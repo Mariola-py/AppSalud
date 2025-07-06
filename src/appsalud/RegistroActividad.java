@@ -1,11 +1,23 @@
 package appsalud;
 
+import javax.swing.JFrame;
 
+/**
+ * Ventana gráfica para seleccionar el tipo de actividad que el usuario desea registrar.
+ * 
+ * Muestra botones para abrir formularios específicos de diferentes tipos de actividades:
+ * actividad genérica, running, cycling y swimming.
+ * Al pulsar un botón se abre la ventana correspondiente y se cierra esta.
+ * 
+ * Esta clase extiende {@link javax.swing.JFrame}.
+ * 
+ * @author Mariola
+ */
 public class RegistroActividad extends javax.swing.JFrame {
 
-    /**
-     * Creates new form RegistroActividad
-     */
+	/**
+    * Crea e inicializa la ventana RegistroActividad.
+    */
     public RegistroActividad() {
         initComponents();
     }
@@ -85,6 +97,7 @@ public class RegistroActividad extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     /**
+     * Acción al pulsar el botón "Actividad genérica".
      * Abre la ventana para registrar una actividad genérica y cierra la ventana actual.
      * @param evt Evento generado por la acción del botón.
      */
@@ -95,8 +108,10 @@ public class RegistroActividad extends javax.swing.JFrame {
     }//GEN-LAST:event_btnGenericaActionPerformed
 
     /**
-     * Abre la ventana para registrar una actividad de running y cierra la ventana actual.
-     * @param evt Evento generado por la acción del botón.
+     * Acción al pulsar el botón "Running".
+     * Abre la ventana de registro para una actividad de running y cierra esta ventana.
+     * 
+     * @param evt Evento generado por el clic del botón.
      */
     private void btnRunningActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRunningActionPerformed
         RunningFrame running = new RunningFrame();
@@ -105,8 +120,10 @@ public class RegistroActividad extends javax.swing.JFrame {
     }//GEN-LAST:event_btnRunningActionPerformed
 
     /**
-     * Abre la ventana para registrar una actividad de ciclismo y cierra la ventana actual.
-     * @param evt Evento generado por la acción del botón.
+     * Acción al pulsar el botón "Cycling".
+     * Abre la ventana de registro para una actividad de ciclismo y cierra esta ventana.
+     * 
+     * @param evt Evento generado por el clic del botón.
      */
     private void btnCyclingActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCyclingActionPerformed
         CyclingFrame cycling = new CyclingFrame();
@@ -115,8 +132,10 @@ public class RegistroActividad extends javax.swing.JFrame {
     }//GEN-LAST:event_btnCyclingActionPerformed
 
     /**
-     * Abre la ventana para registrar una actividad de natación y cierra la ventana actual.
-     * @param evt Evento generado por la acción del botón.
+     * Acción al pulsar el botón "Swimming".
+     * Abre la ventana de registro para una actividad de natación y cierra esta ventana.
+     * 
+     * @param evt Evento generado por el clic del botón.
      */
     private void btnSwimmingActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSwimmingActionPerformed
         SwimmingFrame swimming = new SwimmingFrame();

@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
 package appsalud;
 
 import java.time.LocalDateTime;
@@ -11,23 +7,42 @@ import java.util.Date;
 import javax.swing.JOptionPane;
 
 /**
- *
- * @author garci
+ * JFrame para registrar una sesión de natación (Swimming).
+ * 
+ * Permite al usuario introducir los datos de una actividad de natación, 
+ * validarlos, crear el objeto {@link Swimming} y añadirlo al historial del usuario actual.
+ * 
+ * @author Mariola
  */
 public class SwimmingFrame extends javax.swing.JFrame {
 
+	/** Usuario actual que registra la actividad */
     private Usuario usuario = Sesion.getUsuarioActual();
+
+    /** Fecha y hora de inicio de la sesión */
     private LocalDateTime fhInicio;
+
+    /** Fecha y hora de fin de la sesión */
     private LocalDateTime fhFin;
+
+    /** Distancia recorrida en kilómetros */
     private float distancia;
+
+    /** Frecuencia cardíaca máxima en pulsaciones por minuto */
     private int fcMax;
+
+    /** Frecuencia cardíaca mínima en pulsaciones por minuto */
     private int fcMin;
+
+    /** Tipo de natación (0 = Piscina, 1 = Mar) */
     private int tipo;
+
+    /** Número de largos realizados */
     private int numLargos;
     
     /**
-     * Creates new form SwimmingFrame
-     */
+     * Constructor que inicializa el formulario de registro de natación.
+     */    
     public SwimmingFrame() {
         initComponents();
     }

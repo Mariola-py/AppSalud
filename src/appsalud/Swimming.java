@@ -4,6 +4,16 @@ import java.time.Duration;
 import java.time.LocalDateTime;
 import javax.swing.JOptionPane;
 
+/**
+ * Clase que representa una actividad de natación.
+ * <p>
+ * Esta clase hereda de {@link Actividad} y añade atributos específicos
+ * relacionados con la natación como el número de largos realizados
+ * y el tipo de natación (piscina o mar).
+ * </p>
+ *
+ * @author Mariola
+ */
 public class Swimming extends Actividad{
     
     private int numLargos;

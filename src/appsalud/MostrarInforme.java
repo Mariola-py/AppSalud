@@ -1,8 +1,5 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
 package appsalud;
+
 
 import java.awt.Component;
 import java.awt.Font;
@@ -18,20 +15,38 @@ import javax.swing.table.TableCellRenderer;
 import javax.swing.table.TableColumn;
 
 /**
- *
- * @author garci
+ * Clase que representa la ventana gráfica para mostrar un informe
+ * detallado del usuario actual, incluyendo información personal,
+ * historial de actividades físicas y historial de peso.
+ * 
+ * Esta clase extiende de {@code javax.swing.JFrame} y muestra
+ * tablas con el historial de actividades y pesos, con formatos
+ * personalizados.
+ * 
+ * @author Mariola
  */
 public class MostrarInforme extends javax.swing.JFrame {
     
+	/**
+     * Lista estática con las opciones de sexo que un usuario puede tener.
+     */
     private static final ArrayList<String> SEXO = new ArrayList<>(List.of("Varón", "Hembra"));
-    private static final ArrayList<String> FACTORACTIVIDAD = new ArrayList<>(List.of("Sedentarismo", "Actividad ligera (1 a 3 veces por semana)", 
+    
+    /**
+     * Lista estática con las opciones del factor de actividad física del usuario.
+     */    private static final ArrayList<String> FACTORACTIVIDAD = new ArrayList<>(List.of("Sedentarismo", "Actividad ligera (1 a 3 veces por semana)", 
     "Actividad moderada (3 a 5 veces por semana)", "Actividad intensa (6 o 7 veces por semana)", "Actividad extremadamente alta (Atleta profesional)"));
 
+     /**
+      * Usuario actual de la sesión, del cual se mostrarán los datos e historial.
+      */
+     Usuario usuario = Sesion.getUsuarioActual();
 
-    Usuario usuario = Sesion.getUsuarioActual();
-    /**
-     * Creates new form MostrarInforme
-     */
+     /**
+      * Constructor que inicializa la ventana de informe y carga los datos
+      * personales, historial de actividades y pesos del usuario.
+      * Configura la apariencia de las tablas y ajusta el ancho de columnas.
+      */
     public MostrarInforme() {
         initComponents();
         lbl1.setText("Informe de " + usuario.getUsername());
@@ -71,6 +86,11 @@ public class MostrarInforme extends javax.swing.JFrame {
         cargarHistorialPesos();
     }
     
+    /**
+     * Carga el historial de actividades físicas del usuario en la tabla de actividades.
+     * Extrae los datos de cada actividad, formatea fechas y valores, y los añade como filas
+     * al modelo de la tabla. 
+     */
     private void cargarHistorialActividades() {
         DefaultTableModel model = (DefaultTableModel) tableAct.getModel();
         model.setRowCount(0); // Limpiar tabla antes de cargar datos
@@ -156,22 +176,12 @@ public class MostrarInforme extends javax.swing.JFrame {
         JTableHeader header = tableAct.getTableHeader();
         header.setFont(new Font("Arial Nova Light", Font.PLAIN, 14));
 
-        // Ajustar el ancho de cada columna al contenido
-        for (int col = 0; col < tableAct.getColumnCount(); col++) {
-            
-            TableColumn column = tableAct.getColumnModel().getColumn(col);
-            int maxWidth = 75;
-
-            for (int row = 0; row < tableAct.getRowCount(); row++) {
-                TableCellRenderer renderer = tableAct.getCellRenderer(row, col);
-                Component comp = tableAct.prepareRenderer(renderer, row, col);
-                maxWidth = Math.max(comp.getPreferredSize().width + 10, maxWidth);
-            }
-
-            column.setPreferredWidth(maxWidth);
-        }
     }
 
+    /**
+     * Carga el historial de pesos del usuario en la tabla de pesos.
+     * Muestra la fecha, peso y el IMC. 
+     */
     private void cargarHistorialPesos() {
         DefaultTableModel modeloPeso = (DefaultTableModel) tablePeso.getModel();
         modeloPeso.setRowCount(0);
